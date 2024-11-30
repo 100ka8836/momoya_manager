@@ -42,8 +42,9 @@ $all_skills = $skillsData['all_skills'];
     <meta charset="UTF-8">
     <title>グループ詳細</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/sort_table.js" defer></script>
     <script src="assets/js/tabs.js" defer></script>
+    <script src="assets/js/sort_table.js" defer></script>
+    <script src="assets/js/search_table.js" defer></script>
 </head>
 
 <body>
@@ -58,6 +59,9 @@ $all_skills = $skillsData['all_skills'];
         <!-- 基本情報タブ -->
         <div id="basic" class="tab-content active">
             <table id="sortable-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+                </div>
                 <thead>
                     <tr>
                         <th>カラム</th>
@@ -98,6 +102,9 @@ $all_skills = $skillsData['all_skills'];
         <!-- 能力値タブ -->
         <div id="abilities" class="tab-content">
             <table id="sortable-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+                </div>
                 <thead>
                     <tr>
                         <th>カラム</th>
@@ -166,6 +173,9 @@ $all_skills = $skillsData['all_skills'];
         <!-- 技能タブ -->
         <div id="skills" class="tab-content">
             <table id="sortable-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+                </div>
                 <thead>
                     <tr>
                         <th>技能</th>

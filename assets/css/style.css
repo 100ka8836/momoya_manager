@@ -352,3 +352,37 @@ label {
 input[type="number"] {
   width: 100px;
 }
+
+#column-search {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#column-search input {
+  padding: 5px;
+  font-size: 14px;
+}
+
+#column-search button {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* テーブルの行を並び替えるためのスタイル */
+table tbody tr {
+  display: table-row;
+  order: 0;
+  transition: all 0.3s ease;
+}
+
+/* 検索ボックスのデザイン */
+#search-input {
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

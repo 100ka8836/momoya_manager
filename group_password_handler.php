@@ -3,16 +3,13 @@ require 'includes/db.php';
 
 header('Content-Type: application/json');
 
-try {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception("無効なリクエストメソッドです。");
-    }
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $groupId = $_POST['group_id'] ?? null;
-    $password = $_POST['password'] ?? null;
+    $password = $_POST['password'] ?? '';
 
     if (!$groupId || !$password) {
-        throw new Exception("グループIDまたはパスワードが入力されていません。");
+        echo json_encode(['success' => false, 'message' => 'グループIDまたはパスワードが入力されていません。']);
+        exit;
     }
 
     // グループ情報を取得
@@ -20,13 +17,9 @@ try {
     $stmt->execute([$groupId]);
     $group = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$group || !password_verify($password, $group['password'])) {
+    if ($group && password_verify($password, $group['password'])) {
+        echo json_encode(['success' => true]);
+    } else {
         echo json_encode(['success' => false, 'message' => 'パスワードが正しくありません。']);
-        exit;
     }
-
-    // 成功
-    echo json_encode(['success' => true]);
-} catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }

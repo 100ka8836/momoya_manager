@@ -7,17 +7,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 基本情報を登録
         $stmt = $pdo->prepare("
-            INSERT INTO characters (source_url, name, age, occupation, birthplace, sex)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ");
+        INSERT INTO characters 
+        (source_url, name, age, occupation, birthplace, sex, group_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    ");
         $stmt->execute([
             $_POST['source_url'] ?? null,
             $_POST['name'],
             $_POST['age'] ?? null,
             $_POST['occupation'] ?? null,
             $_POST['birthplace'] ?? null,
-            $_POST['sex'] ?? null
+            $_POST['sex'] ?? null,
+            $_POST['group_id'] ?? null // 新たに追加
         ]);
+
         $characterId = $pdo->lastInsertId();
 
         // 能力値を登録

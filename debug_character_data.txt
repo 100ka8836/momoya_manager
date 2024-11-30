@@ -3088,3 +3088,1899 @@ CCB<=50 頭突き
 1D4+{DB} 頭突き
     [portraitURL] => https://object-storage.tyo2.conoha.io/v1/nc_8d0b8b8762ee4050b883be8088ea3a37/charaeno/IQ17aV9QWc7uIU9CpH1Py?v=JFEOQvClly
 )
+Array
+(
+    [name] => 織田次郎
+    [occupation] => 刑事
+    [degree] => 
+    [birthplace] => 関東
+    [mentalDisorder] => 
+    [age] => 35歳
+    [sex] => 男
+    [characteristics] => Array
+        (
+            [str] => 12
+            [con] => 10
+            [pow] => 15
+            [dex] => 20
+            [app] => 14
+            [siz] => 13
+            [int] => 15
+            [edu] => 15
+        )
+
+    [attribute] => Array
+        (
+            [hp] => 12
+            [mp] => 15
+            [db] => +1D4
+            [san] => Array
+                (
+                    [value] => 73
+                    [max] => 73
+                )
+
+            [luck] => 75
+            [idea] => 75
+            [know] => 75
+        )
+
+    [skills] => Array
+        (
+            [0] => Array
+                (
+                    [name] => 言いくるめ
+                    [value] => 10
+                    [edited] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => 医学
+                    [value] => 90
+                    [edited] => 1
+                )
+
+            [2] => Array
+                (
+                    [name] => 運転（自動車）
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [3] => Array
+                (
+                    [name] => 運転（）
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [4] => Array
+                (
+                    [name] => 応急手当
+                    [value] => 30
+                    [edited] => 
+                )
+
+            [5] => Array
+                (
+                    [name] => オカルト
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [6] => Array
+                (
+                    [name] => 回避
+                    [value] => 78
+                    [edited] => 1
+                )
+
+            [7] => Array
+                (
+                    [name] => 化学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [8] => Array
+                (
+                    [name] => 鍵開け
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [9] => Array
+                (
+                    [name] => 隠す
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [10] => Array
+                (
+                    [name] => 隠れる
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [11] => Array
+                (
+                    [name] => 機械修理
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [12] => Array
+                (
+                    [name] => 聞き耳
+                    [value] => 75
+                    [edited] => 1
+                )
+
+            [13] => Array
+                (
+                    [name] => クトゥルフ神話
+                    [value] => 26
+                    [edited] => 1
+                )
+
+            [14] => Array
+                (
+                    [name] => 芸術（）
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [15] => Array
+                (
+                    [name] => 経理
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [16] => Array
+                (
+                    [name] => 考古学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [17] => Array
+                (
+                    [name] => コンピューター
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [18] => Array
+                (
+                    [name] => 忍び歩き
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [19] => Array
+                (
+                    [name] => 写真術
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [20] => Array
+                (
+                    [name] => 重機械操作
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [21] => Array
+                (
+                    [name] => 乗馬
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [22] => Array
+                (
+                    [name] => 信用
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [23] => Array
+                (
+                    [name] => 心理学
+                    [value] => 19
+                    [edited] => 1
+                )
+
+            [24] => Array
+                (
+                    [name] => 人類学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [25] => Array
+                (
+                    [name] => 水泳
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [26] => Array
+                (
+                    [name] => 製作（）
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [27] => Array
+                (
+                    [name] => 精神分析
+                    [value] => 81
+                    [edited] => 1
+                )
+
+            [28] => Array
+                (
+                    [name] => 生物学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [29] => Array
+                (
+                    [name] => 説得
+                    [value] => 70
+                    [edited] => 1
+                )
+
+            [30] => Array
+                (
+                    [name] => 操縦（）
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [31] => Array
+                (
+                    [name] => 地質学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [32] => Array
+                (
+                    [name] => 跳躍
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [33] => Array
+                (
+                    [name] => 追跡
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [34] => Array
+                (
+                    [name] => 電気修理
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [35] => Array
+                (
+                    [name] => 電子工学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [36] => Array
+                (
+                    [name] => 天文学
+                    [value] => 8
+                    [edited] => 1
+                )
+
+            [37] => Array
+                (
+                    [name] => 投擲
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [38] => Array
+                (
+                    [name] => 登攀
+                    [value] => 40
+                    [edited] => 
+                )
+
+            [39] => Array
+                (
+                    [name] => 図書館
+                    [value] => 33
+                    [edited] => 1
+                )
+
+            [40] => Array
+                (
+                    [name] => ナビゲート
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [41] => Array
+                (
+                    [name] => 値切り
+                    [value] => 10
+                    [edited] => 1
+                )
+
+            [42] => Array
+                (
+                    [name] => 博物学
+                    [value] => 90
+                    [edited] => 1
+                )
+
+            [43] => Array
+                (
+                    [name] => 物理学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [44] => Array
+                (
+                    [name] => 変装
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [45] => Array
+                (
+                    [name] => 法律
+                    [value] => 20
+                    [edited] => 1
+                )
+
+            [46] => Array
+                (
+                    [name] => ほかの言語（）
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [47] => Array
+                (
+                    [name] => 母国語（）
+                    [value] => 75
+                    [edited] => 
+                )
+
+            [48] => Array
+                (
+                    [name] => マーシャルアーツ
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [49] => Array
+                (
+                    [name] => 目星
+                    [value] => 83
+                    [edited] => 1
+                )
+
+            [50] => Array
+                (
+                    [name] => 薬学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [51] => Array
+                (
+                    [name] => 歴史
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [52] => Array
+                (
+                    [name] => 拳銃
+                    [value] => 86
+                    [edited] => 1
+                )
+
+            [53] => Array
+                (
+                    [name] => サブマシンガン
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [54] => Array
+                (
+                    [name] => ショットガン
+                    [value] => 30
+                    [edited] => 
+                )
+
+            [55] => Array
+                (
+                    [name] => マシンガン
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [56] => Array
+                (
+                    [name] => ライフル
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [57] => Array
+                (
+                    [name] => キック
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [58] => Array
+                (
+                    [name] => 組みつき
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [59] => Array
+                (
+                    [name] => こぶし
+                    [value] => 50
+                    [edited] => 
+                )
+
+            [60] => Array
+                (
+                    [name] => 頭突き
+                    [value] => 10
+                    [edited] => 
+                )
+
+        )
+
+    [possessions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => 警察手帳
+                    [count] => 1
+                    [detail] => 当たり前。持ってないことがない。
+                )
+
+            [1] => Array
+                (
+                    [name] => 裁縫道具
+                    [count] => 1
+                    [detail] => コンビニにあるやつ。机には小学校からの裁縫箱が入っている。
+                )
+
+            [2] => Array
+                (
+                    [name] => メモとペン
+                    [count] => 1
+                    [detail] => 刑事ですから。
+                )
+
+            [3] => Array
+                (
+                    [name] => ｉＰａｄ
+                    [count] => 1
+                    [detail] => ナショジオ垂れ流してる。
+                )
+
+            [4] => Array
+                (
+                    [name] => 応急手当セット
+                    [count] => 1
+                    [detail] => 絆創膏、プチ消毒液、ガーゼ等。
+                )
+
+            [5] => Array
+                (
+                    [name] => スマホ
+                    [count] => 1
+                    [detail] => 鳥飼に選んでもらった。ハイスペックらしい。
+                )
+
+            [6] => Array
+                (
+                    [name] => ハンドクリーム、リップクリーム
+                    [count] => 1
+                    [detail] => 身だしなみは大事です。
+                )
+
+            [7] => Array
+                (
+                    [name] => スマホ
+                    [count] => 1
+                    [detail] => 自分で選んで買った。ネット評価☆６
+                )
+
+            [8] => Array
+                (
+                    [name] => シソ飴
+                    [count] => 1
+                    [detail] => 一袋。あげる用。
+                )
+
+            [9] => Array
+                (
+                    [name] => 龍角散
+                    [count] => 1
+                    [detail] => 一袋。ちょっと食べた。開封済み。
+                )
+
+            [10] => Array
+                (
+                    [name] => 缶コーヒー
+                    [count] => 1
+                    [detail] => ボスレインボーマウンテンブレンドクリアロースト。朝買っておく。
+                )
+
+            [11] => Array
+                (
+                    [name] => 煙草、ライター
+                    [count] => 1
+                    [detail] => 銘柄こだわり無し。100円ライター。
+                )
+
+            [12] => Array
+                (
+                    [name] => バッグ
+                    [count] => 1
+                    [detail] => 上記全部入る。ものが多いので常に持ち歩いている。
+                )
+
+        )
+
+    [weapons] => Array
+        (
+            [0] => Array
+                (
+                    [name] => 38口径リボルバー
+                    [value] => 
+                    [damage] => 1d10
+                    [range] => 
+                    [attacks] => 2
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 10
+                )
+
+        )
+
+    [personalData] => Array
+        (
+            [address] => 
+            [description] => 身長：172（175と言っている）　体重：65㎏　Ａ型
+6/26　柘榴　優美
+            [family] => 
+            [insanity] => 
+            [injuries] => 
+            [scar] => ＴＮＰ　7/14
+３ｄ６　寝相ＡＰＰ　6　ベッドから足が落ちてる。
+        )
+
+    [credit] => Array
+        (
+            [income] => 
+            [cash] => 
+            [deposit] => 
+            [personalProperty] => 
+            [realEstate] => 
+        )
+
+    [mythosTomes] => 
+    [artifactsAndSpells] => 
+    [encounters] => 
+    [note] => URL: https://charasheet.vampire-blood.net/m045049c642d64ee2b095f84a25c84920
+
+【人】
+体の弱い兄、気の強い姉がいる。
+人の為になることが好きで、医者になりたいと思い努力する。
+両親に溺愛されている兄は自分と同じく医者を目指すと言う。
+家族の事は嫌いではない。だが、どこか「自分が大切にされていない」と感じて育った。
+その分周りを気にし、努力してきた。
+卑屈に育った自覚はある。だから迷惑を掛けぬよう一層の努力をした。
+自分が２４で医師免許を取ったとき、「留年している兄の事を考えているのか」と怒られた。
+その時に何かが折れ、転向。この時実家を出て一人暮らしを始める。
+人の為になりたいという考えは変わらず、警察を目指す。
+
+【趣味】
+卑屈な人生において、気晴らしに色々なものを見るのが好きだった。
+美しい物、素晴らしい物は相対して自分の価値を無に近づけてくれる気がした。
+中でも植物は静かに隣にいてくれる。手を掛けた分美しくなる。
+植物園に行ったり、育て方の本を読んだり…
+部屋の中に温室コーナーを作り、デスクにもサボテンを置いたりした。
+
+【事件】
+警察…役割的に刑事と呼ばれるが、その仕事も順調だった。
+頼れる仲間、自らを認めてくれる仲間と忙しく賑やかに過ごす。
+趣味でも友達が出来、息抜きも出来ている。
+辛い事もあったが、幸せだ。
+
+
+【技能】
+回避（70%）◆元々が上手（40）。訓練で更に鍛え上げられた。
+「自分が怪我すると他の人に迷惑が掛かりますから」
+
+拳銃（70%）◆近接がそこまで出来ない分、銃に力を注いだ。
+「自分が銃を撃つ機会があったらよっぽどなのでね」
+
+聞き耳（75%）◆┓
+目星（75%）　◆┛周りの動向を常に気にしている。気が利くと言われるが、同時に周りの評価を気にしている。
+「良い人でいなければ、役立つ人でいなければいけない…」
+
+精神分析（81%）◆周りを落ち着け、次に備えさせる。その心得がある。
+「自分が出来るのは寄り添う事くらいで…それが許されるならなるべく頑張りたいです」
+
+言いくるめ（10%）◆時には強制しなくてはいけない。が、ごり押しはそこまで得意ではない。
+「嘘をついている気がして…」
+
+説得（70%）◆言いくるめるくらいなら利害を説明して協力してもらったほうがいい。
+「みんなのためになりたいというのは本心ですから気が楽です」
+
+値切り（10%）◆知識から真価を見出したい気持ち。値引き交渉という意味では下手だ。
+「素晴らしいものはその通りの値段でよくないですか？」
+
+医学（90%）◆経験もある、知識もある。だがそれを生業には出来なかった。
+「自分は優秀ではない…それでも今活かせるならよかった」
+
+心理学（10%）◆相手が考えることを読み取る努力はしている。…大抵あってないが。
+「また失礼なことを言ってしまっただろうか…不快にしたい訳じゃないんだ…」
+
+博物学（90%）◆世界を知ることは自分を知ることである。そして、自分は矮小だと自覚できる。
+「素晴らしいものを知ると嬉しい！楽しい！自分如きの価値など考えなくてもよくなるからね」
+
+法律（20%）◆警察として必要な法は叩き込んだ。その他はちょっと…
+「細かい話は…署でしようか……。すみません誰かー！」
+    [chatpalette] => 1D100<={SAN} 正気度ロール
+CCB<=75 幸運
+CCB<=60 STR×5
+CCB<=50 CON×5
+CCB<=75 POW×5
+CCB<=100 DEX×5
+CCB<=70 APP×5
+CCB<=65 SIZ×5
+CCB<=75 アイデア
+CCB<=75 知識
+CCB<=10 言いくるめ
+CCB<=90 医学
+CCB<=78 回避
+CCB<=75 聞き耳
+CCB<=26 クトゥルフ神話
+CCB<=19 心理学
+CCB<=81 精神分析
+CCB<=70 説得
+CCB<=8 天文学
+CCB<=33 図書館
+CCB<=10 値切り
+CCB<=90 博物学
+CCB<=20 法律
+CCB<=75 母国語（）
+CCB<=83 目星
+CCB<=86 拳銃
+CCB<=25 キック
+CCB<=25 組みつき
+CCB<=50 こぶし
+CCB<=10 頭突き
+1d10 38口径リボルバー
+    [portraitURL] => https://object-storage.tyo2.conoha.io/v1/nc_8d0b8b8762ee4050b883be8088ea3a37/charaeno/Ep1q4n90JXYAE3Y5stoaW?v=_EbKuQOLwx
+)
+Array
+(
+    [name] => 珠真 木春（すま きはる）
+    [occupation] => ヤクザ
+    [degree] => 文学部国文学専攻　大学卒（中学教員免許所持）
+    [birthplace] => 
+    [mentalDisorder] => 
+    [age] => 37
+    [sex] => 男
+    [characteristics] => Array
+        (
+            [str] => 18
+            [con] => 18
+            [pow] => 13
+            [dex] => 13
+            [app] => 10
+            [siz] => 15
+            [int] => 7
+            [edu] => 17
+        )
+
+    [attribute] => Array
+        (
+            [hp] => 17
+            [mp] => 13
+            [db] => +1D6
+            [san] => Array
+                (
+                    [value] => 65
+                    [max] => 99
+                )
+
+            [luck] => 65
+            [idea] => 35
+            [know] => 85
+        )
+
+    [skills] => Array
+        (
+            [0] => Array
+                (
+                    [name] => 言いくるめ
+                    [value] => 45
+                    [edited] => 1
+                )
+
+            [1] => Array
+                (
+                    [name] => 医学
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [2] => Array
+                (
+                    [name] => 運転（自動車）
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [3] => Array
+                (
+                    [name] => 運転（）
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [4] => Array
+                (
+                    [name] => 応急手当
+                    [value] => 30
+                    [edited] => 
+                )
+
+            [5] => Array
+                (
+                    [name] => オカルト
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [6] => Array
+                (
+                    [name] => 回避
+                    [value] => 32
+                    [edited] => 1
+                )
+
+            [7] => Array
+                (
+                    [name] => 化学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [8] => Array
+                (
+                    [name] => 鍵開け
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [9] => Array
+                (
+                    [name] => 隠す
+                    [value] => 75
+                    [edited] => 1
+                )
+
+            [10] => Array
+                (
+                    [name] => 隠れる
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [11] => Array
+                (
+                    [name] => 機械修理
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [12] => Array
+                (
+                    [name] => 聞き耳
+                    [value] => 69
+                    [edited] => 1
+                )
+
+            [13] => Array
+                (
+                    [name] => クトゥルフ神話
+                    [value] => 0
+                    [edited] => 
+                )
+
+            [14] => Array
+                (
+                    [name] => 芸術（イカサマ）
+                    [value] => 30
+                    [edited] => 1
+                )
+
+            [15] => Array
+                (
+                    [name] => 経理
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [16] => Array
+                (
+                    [name] => 考古学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [17] => Array
+                (
+                    [name] => コンピューター
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [18] => Array
+                (
+                    [name] => 忍び歩き
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [19] => Array
+                (
+                    [name] => 写真術
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [20] => Array
+                (
+                    [name] => 重機械操作
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [21] => Array
+                (
+                    [name] => 乗馬
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [22] => Array
+                (
+                    [name] => 信用
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [23] => Array
+                (
+                    [name] => 心理学
+                    [value] => 65
+                    [edited] => 1
+                )
+
+            [24] => Array
+                (
+                    [name] => 人類学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [25] => Array
+                (
+                    [name] => 水泳
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [26] => Array
+                (
+                    [name] => 製作（）
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [27] => Array
+                (
+                    [name] => 精神分析
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [28] => Array
+                (
+                    [name] => 生物学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [29] => Array
+                (
+                    [name] => 説得
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [30] => Array
+                (
+                    [name] => 操縦（）
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [31] => Array
+                (
+                    [name] => 地質学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [32] => Array
+                (
+                    [name] => 跳躍
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [33] => Array
+                (
+                    [name] => 追跡
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [34] => Array
+                (
+                    [name] => 電気修理
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [35] => Array
+                (
+                    [name] => 電子工学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [36] => Array
+                (
+                    [name] => 天文学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [37] => Array
+                (
+                    [name] => 投擲
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [38] => Array
+                (
+                    [name] => 登攀
+                    [value] => 40
+                    [edited] => 
+                )
+
+            [39] => Array
+                (
+                    [name] => 図書館
+                    [value] => 60
+                    [edited] => 1
+                )
+
+            [40] => Array
+                (
+                    [name] => ナビゲート
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [41] => Array
+                (
+                    [name] => 値切り
+                    [value] => 60
+                    [edited] => 1
+                )
+
+            [42] => Array
+                (
+                    [name] => 博物学
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [43] => Array
+                (
+                    [name] => 物理学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [44] => Array
+                (
+                    [name] => 変装
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [45] => Array
+                (
+                    [name] => 法律
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [46] => Array
+                (
+                    [name] => ほかの言語（）
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [47] => Array
+                (
+                    [name] => 母国語（）
+                    [value] => 85
+                    [edited] => 
+                )
+
+            [48] => Array
+                (
+                    [name] => マーシャルアーツ
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [49] => Array
+                (
+                    [name] => 目星
+                    [value] => 77
+                    [edited] => 1
+                )
+
+            [50] => Array
+                (
+                    [name] => 薬学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [51] => Array
+                (
+                    [name] => 歴史
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [52] => Array
+                (
+                    [name] => 拳銃
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [53] => Array
+                (
+                    [name] => サブマシンガン
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [54] => Array
+                (
+                    [name] => ショットガン
+                    [value] => 30
+                    [edited] => 
+                )
+
+            [55] => Array
+                (
+                    [name] => マシンガン
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [56] => Array
+                (
+                    [name] => ライフル
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [57] => Array
+                (
+                    [name] => キック
+                    [value] => 80
+                    [edited] => 1
+                )
+
+            [58] => Array
+                (
+                    [name] => 組みつき
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [59] => Array
+                (
+                    [name] => こぶし
+                    [value] => 82
+                    [edited] => 1
+                )
+
+            [60] => Array
+                (
+                    [name] => 頭突き
+                    [value] => 10
+                    [edited] => 
+                )
+
+        )
+
+    [possessions] => Array
+        (
+        )
+
+    [weapons] => Array
+        (
+            [0] => Array
+                (
+                    [name] => キック
+                    [value] => 
+                    [damage] => 1D6+DB
+                    [range] => タッチ
+                    [attacks] => 1
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => こぶし
+                    [value] => 
+                    [damage] => 1D3+DB
+                    [range] => タッチ
+                    [attacks] => 1
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 
+                )
+
+            [2] => Array
+                (
+                    [name] => 頭突き
+                    [value] => 
+                    [damage] => 1D4+DB
+                    [range] => タッチ
+                    [attacks] => 1
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 
+                )
+
+        )
+
+    [personalData] => Array
+        (
+            [address] => 
+            [description] => 身長185cm　体重87kg
+2月20日/マーガレット/恋の行方
+B型　男にモテる/嬉しい　両刀　寝相/おふとん枕ぎゅっ
+Bad→虫/雷/海
+Like→駄菓子/葡萄/5分前行動
+性感帯/膝裏・足の指・下唇・肩甲骨・頬・のどぼとけ
+TNP8/16　♂特徴表/勉強家（EDU+1）・ポジションが悪い（POW-1）
+            [family] => 【家族】
+本当の家族は一家離散していて消息も知らない。上に姉がいた。
+↑の家族への愛着は別にない。
+
+【囲いの女の設定】
+源氏名：美沙姫（本名：木戸貴子）37歳
+8歳の息子がいるシングルマザー（息子：さとし）
+有名キャバのナンバーワン。独立するか足洗うか悩んでいる所らしい。
+サッパリしてる所は勿論、ギャグセンスが似てるから好き。
+独立するにしても足洗うにしても祝い金はめっちゃやるからなと応援してる。
+
+源氏名：まなか（本名：堀田かな）26歳
+風に流れた元・水の女。水より風の才能がある。
+風の時に知り会って物怖じしない度胸が好きになった。
+若いんだからこんな商売やめたら？と思わなくもないが、めちゃ才能あるしそれも人生かな～とラフに付き合っている。
+
+男に固定はいないしそんなにとっかえひっかえ遊ぶ方ではない。
+            [insanity] => 1ヶ月間落語家に対して困惑する。
+どういう感情？という疑問が耐えない。
+            [injuries] => 
+            [scar] => 刺青あり。マーガレットとねずみさんが隠れているのがお気に入りである。
+        )
+
+    [credit] => Array
+        (
+            [income] => 600万（表の稼ぎ）
+            [cash] => 6万
+            [deposit] => 6000万
+            [personalProperty] => 表に出せないものが多数
+            [realEstate] => 家3つ+時々家を借りる（レンタル）
+        )
+
+    [mythosTomes] => 
+    [artifactsAndSpells] => 
+    [encounters] => 
+    [note] => 【目的】
+組長の命令を全うする。
+俺の下で喜ぶようにする。
+（えっちな意味ではなく、向こうが下でこっちが上という立場を落語家自ら望んでそれに喜ぶようになる）
+
+【集団に属したいが強すぎて出来なかった狼】
+類まれな肉体と喧嘩っ早い性格によって地元じゃ無敵（少年院出入り多数）だった所を組に拾われた。
+好きで一匹狼してた訳じゃないので拾ってくれた組と親父には多大な恩を感じている。
+組側から「上に立つには学がなきゃ」と言われたので大学はちゃんと出た。頭の出来は悪くないようだ。
+発想力に欠けるきらいがあり、知将タイプではない。自分でもそれは理解している。
+現在では喧嘩っ早いのも組に迷惑が掛かるので出来るだけ抑えている。
+抑えているだけなので人を殴り殺すことに嫌悪感などはない。弱いのが悪い。
+
+【落語家に対して】
+俺が上になりたい、なりたいというかそれが正解のはずなのにどうして調子乗ってんだ？
+と疑問を持っている。
+親父が薬反対だから盛ってないだけで機会があるなら床で魚みたいにビチビチ跳ねて助けを乞う所とか見たい。清々しい気分になるだろう。
+好感度は置いておいてとても好みではある。あれで子犬のように懐いたら可愛いのに……。
+
+【由来】
+全てが誕生花のマーガレット由来。
+「真珠」を意味するギリシア語の「Margarites（マルガリテス）」から名付けられた花
+＝珠真（すま）
+木春菊（もくしゅんぎく）という和名＝木春（きはる）
+背中に背負った刺青ではマーガレットが17個見えているが、これはマーガレットの花を贈るときの花言葉にかけている。17本：絶望の愛。
+木春はマーガレットを彫ってくれとはいったがその数までは指定しなかった。
+
+    [chatpalette] => 1D100<={SAN} 正気度ロール
+CCB<=65 幸運
+CCB<=90 STR×5
+CCB<=90 CON×5
+CCB<=65 POW×5
+CCB<=65 DEX×5
+CCB<=50 APP×5
+CCB<=75 SIZ×5
+CCB<=35 アイデア
+CCB<=85 知識
+CCB<=45 言いくるめ
+CCB<=32 回避
+CCB<=75 隠す
+CCB<=69 聞き耳
+CCB<=30 芸術（イカサマ）
+CCB<=65 心理学
+CCB<=60 図書館
+CCB<=60 値切り
+CCB<=85 母国語（）
+CCB<=77 目星
+CCB<=80 キック
+CCB<=25 組みつき
+CCB<=82 こぶし
+CCB<=10 頭突き
+1D6+{DB} キック
+1D3+{DB} こぶし
+1D4+{DB} 頭突き
+    [portraitURL] => https://object-storage.tyo2.conoha.io/v1/nc_8d0b8b8762ee4050b883be8088ea3a37/charaeno/g3z2MIcNnzb2R1_pW6xB_?v=AN7WnUscjX
+)
+Array
+(
+    [name] => 百足 謙（ももたり けん）
+    [occupation] => 海上自衛隊（2015より）
+    [degree] => 
+    [birthplace] => 
+    [mentalDisorder] => 
+    [age] => 29
+    [sex] => 男
+    [characteristics] => Array
+        (
+            [str] => 10
+            [con] => 13
+            [pow] => 14
+            [dex] => 15
+            [app] => 7
+            [siz] => 8
+            [int] => 16
+            [edu] => 16
+        )
+
+    [attribute] => Array
+        (
+            [hp] => 11
+            [mp] => 14
+            [db] => +0
+            [san] => Array
+                (
+                    [value] => 74
+                    [max] => 99
+                )
+
+            [luck] => 70
+            [idea] => 80
+            [know] => 80
+        )
+
+    [skills] => Array
+        (
+            [0] => Array
+                (
+                    [name] => 言いくるめ
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => 医学
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [2] => Array
+                (
+                    [name] => 運転（自動車）
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [3] => Array
+                (
+                    [name] => 運転（）
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [4] => Array
+                (
+                    [name] => 応急手当
+                    [value] => 40
+                    [edited] => 1
+                )
+
+            [5] => Array
+                (
+                    [name] => オカルト
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [6] => Array
+                (
+                    [name] => 回避
+                    [value] => 36
+                    [edited] => 1
+                )
+
+            [7] => Array
+                (
+                    [name] => 化学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [8] => Array
+                (
+                    [name] => 鍵開け
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [9] => Array
+                (
+                    [name] => 隠す
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [10] => Array
+                (
+                    [name] => 隠れる
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [11] => Array
+                (
+                    [name] => 機械修理
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [12] => Array
+                (
+                    [name] => 聞き耳
+                    [value] => 75
+                    [edited] => 1
+                )
+
+            [13] => Array
+                (
+                    [name] => クトゥルフ神話
+                    [value] => 0
+                    [edited] => 
+                )
+
+            [14] => Array
+                (
+                    [name] => 芸術（）
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [15] => Array
+                (
+                    [name] => 経理
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [16] => Array
+                (
+                    [name] => 考古学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [17] => Array
+                (
+                    [name] => コンピューター
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [18] => Array
+                (
+                    [name] => 忍び歩き
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [19] => Array
+                (
+                    [name] => 写真術
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [20] => Array
+                (
+                    [name] => 重機械操作
+                    [value] => 51
+                    [edited] => 1
+                )
+
+            [21] => Array
+                (
+                    [name] => 乗馬
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [22] => Array
+                (
+                    [name] => 信用
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [23] => Array
+                (
+                    [name] => 心理学
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [24] => Array
+                (
+                    [name] => 人類学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [25] => Array
+                (
+                    [name] => 水泳
+                    [value] => 65
+                    [edited] => 1
+                )
+
+            [26] => Array
+                (
+                    [name] => 製作（）
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [27] => Array
+                (
+                    [name] => 精神分析
+                    [value] => 70
+                    [edited] => 1
+                )
+
+            [28] => Array
+                (
+                    [name] => 生物学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [29] => Array
+                (
+                    [name] => 説得
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [30] => Array
+                (
+                    [name] => 操縦（ボート）
+                    [value] => 11
+                    [edited] => 1
+                )
+
+            [31] => Array
+                (
+                    [name] => 地質学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [32] => Array
+                (
+                    [name] => 跳躍
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [33] => Array
+                (
+                    [name] => 追跡
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [34] => Array
+                (
+                    [name] => 電気修理
+                    [value] => 80
+                    [edited] => 1
+                )
+
+            [35] => Array
+                (
+                    [name] => 電子工学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [36] => Array
+                (
+                    [name] => 天文学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [37] => Array
+                (
+                    [name] => 投擲
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [38] => Array
+                (
+                    [name] => 登攀
+                    [value] => 40
+                    [edited] => 
+                )
+
+            [39] => Array
+                (
+                    [name] => 図書館
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [40] => Array
+                (
+                    [name] => ナビゲート
+                    [value] => 75
+                    [edited] => 1
+                )
+
+            [41] => Array
+                (
+                    [name] => 値切り
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [42] => Array
+                (
+                    [name] => 博物学
+                    [value] => 10
+                    [edited] => 
+                )
+
+            [43] => Array
+                (
+                    [name] => 物理学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [44] => Array
+                (
+                    [name] => 変装
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [45] => Array
+                (
+                    [name] => 法律
+                    [value] => 5
+                    [edited] => 
+                )
+
+            [46] => Array
+                (
+                    [name] => ほかの言語（）
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [47] => Array
+                (
+                    [name] => 母国語（）
+                    [value] => 80
+                    [edited] => 
+                )
+
+            [48] => Array
+                (
+                    [name] => マーシャルアーツ
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [49] => Array
+                (
+                    [name] => 目星
+                    [value] => 60
+                    [edited] => 1
+                )
+
+            [50] => Array
+                (
+                    [name] => 薬学
+                    [value] => 1
+                    [edited] => 
+                )
+
+            [51] => Array
+                (
+                    [name] => 歴史
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [52] => Array
+                (
+                    [name] => サバイバル（海）
+                    [value] => 40
+                    [edited] => 1
+                )
+
+            [53] => Array
+                (
+                    [name] => 拳銃
+                    [value] => 20
+                    [edited] => 
+                )
+
+            [54] => Array
+                (
+                    [name] => サブマシンガン
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [55] => Array
+                (
+                    [name] => ショットガン
+                    [value] => 30
+                    [edited] => 
+                )
+
+            [56] => Array
+                (
+                    [name] => マシンガン
+                    [value] => 15
+                    [edited] => 
+                )
+
+            [57] => Array
+                (
+                    [name] => ライフル
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [58] => Array
+                (
+                    [name] => 砲
+                    [value] => 70
+                    [edited] => 1
+                )
+
+            [59] => Array
+                (
+                    [name] => キック
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [60] => Array
+                (
+                    [name] => 組みつき
+                    [value] => 25
+                    [edited] => 
+                )
+
+            [61] => Array
+                (
+                    [name] => こぶし
+                    [value] => 50
+                    [edited] => 
+                )
+
+            [62] => Array
+                (
+                    [name] => 頭突き
+                    [value] => 10
+                    [edited] => 
+                )
+
+        )
+
+    [possessions] => Array
+        (
+        )
+
+    [weapons] => Array
+        (
+            [0] => Array
+                (
+                    [name] => キック
+                    [value] => 
+                    [damage] => 1D6+DB
+                    [range] => タッチ
+                    [attacks] => 1
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => こぶし
+                    [value] => 
+                    [damage] => 1D3+DB
+                    [range] => タッチ
+                    [attacks] => 1
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 
+                )
+
+            [2] => Array
+                (
+                    [name] => 頭突き
+                    [value] => 
+                    [damage] => 1D4+DB
+                    [range] => タッチ
+                    [attacks] => 1
+                    [ammo] => 
+                    [malfunction] => 
+                    [hp] => 
+                )
+
+        )
+
+    [personalData] => Array
+        (
+            [address] => 
+            [description] => 潜水艇を希望しているがその夢はまだ叶っていない。
+いつか潜水艇勤務出来るかなぁ…と思いながら船上勤務をしている。
+静かで根暗に見えるが海の男なのでジョーク理解はある。
+            [family] => 田舎の大家族の三男坊＆親戚が多い。
+            [insanity] => 
+            [injuries] => 
+            [scar] => 
+        )
+
+    [credit] => Array
+        (
+            [income] => 
+            [cash] => 
+            [deposit] => 
+            [personalProperty] => 
+            [realEstate] => 
+        )
+
+    [mythosTomes] => 
+    [artifactsAndSpells] => 1-9一族伝来の秘宝/おそらく実家の蔵にアーティファクトが眠っている。
+    [encounters] => 
+    [note] => 6-6急速な回復力/回復ロール+1
+29歳　身長150　体重50kg
+
+    [chatpalette] => 1D100<={SAN} 正気度ロール
+CCB<=70 幸運
+CCB<=50 STR×5
+CCB<=65 CON×5
+CCB<=70 POW×5
+CCB<=75 DEX×5
+CCB<=35 APP×5
+CCB<=40 SIZ×5
+CCB<=80 アイデア
+CCB<=80 知識
+CCB<=40 応急手当
+CCB<=36 回避
+CCB<=75 聞き耳
+CCB<=51 重機械操作
+CCB<=65 水泳
+CCB<=70 精神分析
+CCB<=11 操縦（ボート）
+CCB<=80 電気修理
+CCB<=25 図書館
+CCB<=75 ナビゲート
+CCB<=80 母国語（）
+CCB<=60 目星
+CCB<=40 サバイバル（海）
+CCB<=70 砲
+CCB<=25 キック
+CCB<=25 組みつき
+CCB<=50 こぶし
+CCB<=10 頭突き
+1D6+{DB} キック
+1D3+{DB} こぶし
+1D4+{DB} 頭突き
+    [portraitURL] => https://object-storage.tyo2.conoha.io/v1/nc_8d0b8b8762ee4050b883be8088ea3a37/charaeno/fx72DL9vdAZGFJdlELkRW?v=jl60XD3SlJ
+)

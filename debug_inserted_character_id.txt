@@ -3,3 +3,6 @@ Inserted character ID: 20
 Inserted character ID: 21
 Inserted character ID: 22
 Inserted character ID: 23
+Inserted character ID: 38
+Inserted character ID: 39
+Inserted character ID: 40

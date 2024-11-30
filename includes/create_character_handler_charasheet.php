@@ -53,19 +53,20 @@ function saveCharacterToDatabase($pdo, $data, $skills, $customSkills)
 
         // characters テーブルへの挿入
         $stmt = $pdo->prepare("
-            INSERT INTO characters 
-            (name, age, occupation, birthplace, sex, description, note, source_url)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+        INSERT INTO characters 
+        (name, age, occupation, birthplace, sex, description, note, source_url, group_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
         $stmt->execute([
-            $data['pc_name'], // キャラクター名
-            $data['age'] ?? null, // 年齢
-            $data['shuzoku'] ?? null, // 職業
-            $data['pc_kigen'] ?? null, // 出身地
-            $data['sex'] ?? null, // 性別
-            $data['pc_making_memo'] ?? null, // キャラクターの説明
-            $data['pc_making_memo'] ?? null, // メモ
-            $data['source_url'] ?? null // データ元URL
+            $data['pc_name'],
+            $data['age'] ?? null,
+            $data['shuzoku'] ?? null,
+            $data['pc_kigen'] ?? null,
+            $data['sex'] ?? null,
+            $data['pc_making_memo'] ?? null,
+            $data['pc_making_memo'] ?? null,
+            $data['source_url'] ?? null,
+            $_POST['group_id'] ?? null // 新たに追加
         ]);
         $characterId = $pdo->lastInsertId();
 

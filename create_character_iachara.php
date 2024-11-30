@@ -5,6 +5,11 @@ require 'includes/header.php';
 // メッセージの初期化
 $message = $_GET['message'] ?? '';
 $messageClass = isset($_GET['success']) && $_GET['success'] == '1' ? 'success-message' : 'error-message';
+
+// グループデータの取得
+$stmt = $pdo->query("SELECT id, name FROM groups");
+$groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +22,7 @@ $messageClass = isset($_GET['success']) && $_GET['success'] == '1' ? 'success-me
 </head>
 
 <body>
-    <h1>手動でキャラクターを登録</h1>
-
+    <h1>いあきゃらから登録</h1>
     <!-- メッセージ表示部分 -->
     <?php if ($message): ?>
         <p class="<?= $messageClass ?>"><?= htmlspecialchars($message) ?></p>
@@ -28,6 +32,19 @@ $messageClass = isset($_GET['success']) && $_GET['success'] == '1' ? 'success-me
         <fieldset>
             <legend>基本情報</legend>
             <label>URL: <input type="url" name="source_url"></label><br>
+            <!-- グループ選択を追加 -->
+            <fieldset>
+                <legend>所属グループ</legend>
+                <label for="group">グループ:</label>
+                <select name="group_id" id="group">
+                    <option value="">-- グループを選択 --</option>
+                    <?php foreach ($groups as $group): ?>
+                        <option value="<?= htmlspecialchars($group['id']) ?>"><?= htmlspecialchars($group['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </fieldset>
+
             <label>名前: <input type="text" name="name" required></label><br>
             <label>年齢: <input type="number" name="age"></label><br>
             <label>職業: <input type="text" name="occupation"></label><br>

@@ -9,6 +9,11 @@ $messageClass = (strpos($message, 'エラー') !== false) ? 'error-message' : 's
 // データベースからグループ一覧を取得
 $stmt = $pdo->query("SELECT id, name FROM groups");
 $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// グループデータの取得
+$stmt = $pdo->query("SELECT id, name FROM groups");
+$groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +36,19 @@ $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <form method="post" action="includes/create_character_handler_charasheet.php">
         <label>キャラクターシートのURLを入力してください:</label><br>
         <input type="url" name="charasheet_url" required><br>
+
+        <!-- グループ選択を追加 -->
+        <fieldset>
+            <legend>所属グループ</legend>
+            <label for="group">グループ:</label>
+            <select name="group_id" id="group">
+                <option value="">-- グループを選択 --</option>
+                <?php foreach ($groups as $group): ?>
+                    <option value="<?= htmlspecialchars($group['id']) ?>"><?= htmlspecialchars($group['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </fieldset>
+
 
         <fieldset>
             <legend>技能値</legend>
