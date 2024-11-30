@@ -151,6 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['message'] = $message;
     $_SESSION['message_class'] = strpos($message, 'エラー') !== false ? 'error-message' : 'success-message';
 
-    header('../create_character_charaeno.php');
+    header('Location: /create_character_charaeno.php?message=登録しました！&success=1');
     exit;
 }
