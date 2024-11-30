@@ -2,12 +2,15 @@
 require 'includes/db.php';
 require 'fetch_skills.php';
 
+
 // グループIDを取得
 $group_id = $_GET['group_id'] ?? null;
+$activeTab = $_GET['activeTab'] ?? 'basic';
 
 if (!$group_id) {
     die("グループが選択されていません。");
 }
+
 
 // グループに所属するキャラクターを取得
 $stmt = $pdo->prepare("
@@ -34,7 +37,11 @@ if (empty($characters)) {
 $skillsData = fetchSkills($group_id, $pdo);
 $skills = $skillsData['skills'];
 $all_skills = $skillsData['all_skills'];
+
+// タブ保持用のアクティブタブを取得
+$activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -45,15 +52,23 @@ $all_skills = $skillsData['all_skills'];
     <script src="assets/js/tabs.js" defer></script>
     <script src="assets/js/sort_table.js" defer></script>
     <script src="assets/js/search_table.js" defer></script>
+    <script src="assets/js/addOtherItem.js" defer></script>
+    <script src="assets/js/othersTab.js" defer></script>
+    <script src="assets/js/editOtherItem.js" defer></script>
+    <script src="assets/js/deleteRow.js"></script>
+    <script src="assets/js/deleteOtherItem.js" defer></script>
+
+
 </head>
 
-<body>
+<body data-group-id="<?= htmlspecialchars($group_id) ?>">
     <?php include __DIR__ . '/includes/header.php'; ?>
     <main class="container">
         <div class="tabs">
             <button class="tab-button active" data-tab="basic">基本</button>
             <button class="tab-button" data-tab="abilities">能力</button>
             <button class="tab-button" data-tab="skills">技能</button>
+            <button class="tab-button" data-tab="others">その他</button>
         </div>
 
         <!-- 基本情報タブ -->
@@ -204,7 +219,34 @@ $all_skills = $skillsData['all_skills'];
                 </tbody>
             </table>
         </div>
+
+
+
+        <div id="others" class="tab-content">
+            <table id="character-table" class="character-table">
+                <thead>
+                    <tr id="table-head-row">
+                        <!-- 「項目」とキャラクター名が動的に追加される -->
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- 各項目の行が動的に追加される -->
+                </tbody>
+            </table>
+            <div class="table-controls">
+                <button id="add-item-btn" class="control-btn">+</button>
+                <button id="edit-table-btn" class="control-btn">編集</button>
+                <button id="save-table-btn" class="control-btn" style="display: none;">完了</button>
+            </div>
+        </div>
+
+
+
     </main>
+    <script>
+        const groupId = <?= json_encode($group_id); ?>;
+    </script>
+
 </body>
 
 </html>

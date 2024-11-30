@@ -96,7 +96,9 @@ $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
             /* ホバー時に少し暗く */
         }
     </style>
-    <script src="assets/js/group_handler.js"></script>
+    <script src="assets/js/group_handler.js" defer></script>
+    <script src="assets/js/form_handler.js" defer></script>
+
 </head>
 
 <body>
