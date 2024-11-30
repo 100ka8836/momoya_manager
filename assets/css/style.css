@@ -1,4 +1,6 @@
-/* グローバルスタイル */
+/* ==============================
+   グローバルスタイル
+============================== */
 body {
   font-family: "Arial", sans-serif;
   margin: 0;
@@ -10,38 +12,42 @@ body {
   align-items: center;
 }
 
-/* ヘッダー */
+a {
+  color: #444;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #666;
+}
+
+/* ==============================
+   ヘッダー
+============================== */
 header {
-  background-color: #222222; /* 白地 */
-  color: #333; /* 黒字 */
-  padding: 10px 0; /* 上下の余白のみ */
-  width: 100%; /* ヘッダーを画面幅全体に広げる */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 下に軽い影を追加 */
-  position: relative; /* 要素を標準の位置に配置 */
+  background-color: #222222;
+  color: #fff;
+  padding: 10px 0;
+  width: 100%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header nav {
-  max-width: 1200px; /* 中央コンテンツの最大幅 */
-  margin: 0 auto; /* 中央寄せ */
-  padding: 0 20px; /* 左右の余白 */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-
 header nav ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin: 0;
+  padding: 0;
 }
-
-header nav ul li {
-  display: inline;
-}
-
 header nav ul li a {
-  color: #ffffff; /* 白字 */
-  background-color: #333; /* 黒地 */
+  color: #ffffff;
+  background-color: #333;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
@@ -49,23 +55,24 @@ header nav ul li a {
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
-
 header nav ul li a:hover {
-  color: #333; /* 黒字 */
-  background-color: #ffffff; /* 白地 */
-  border: 1px solid #333; /* 黒の縁取り */
+  color: #333;
+  background-color: #ffffff;
+  border: 1px solid #333;
 }
 
-/* メインコンテンツ */
+/* ==============================
+   メインコンテンツ
+============================== */
 main {
   width: 90%;
-  max-width: 800px;
+  max-width: 1200px;
   margin-top: 20px;
   padding: 20px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center; /* 中央寄せ */
+  text-align: center;
 }
 
 main h1 {
@@ -74,11 +81,13 @@ main h1 {
   color: #444;
 }
 
-/* ボタン */
+/* ==============================
+   ボタン
+============================== */
 button {
-  background-color: white; /* 白地 */
-  color: black; /* 黒字 */
-  border: 2px solid black; /* 黒の縁取り */
+  background-color: white;
+  color: black;
+  border: 2px solid black;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -86,21 +95,44 @@ button {
   margin: 10px;
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
-
 button:hover {
-  background-color: black; /* 黒地 */
-  color: white; /* 白字 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 軽いシャドウ */
+  background-color: black;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* フォームの中央寄せ */
+.control-btn {
+  background-color: #1b1b1b;
+  color: white;
+}
+.control-btn:hover,
+.control-btn:active {
+  background-color: #000;
+}
+
+.create-group-btn {
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.create-group-btn:hover {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ==============================
+   フォーム
+============================== */
 form {
   display: flex;
   flex-direction: column;
-  align-items: center; /* 中央寄せ */
+  align-items: center;
 }
 
-/* フォームのフィールド */
 form input,
 form select,
 form textarea {
@@ -114,11 +146,6 @@ form textarea {
   background-color: #f9f9f9;
   color: #333;
 }
-
-form textarea {
-  resize: vertical;
-}
-
 form input:focus,
 form select:focus,
 form textarea:focus {
@@ -126,44 +153,91 @@ form textarea:focus {
   border-color: #888;
 }
 
-/* リンク */
-a {
-  color: #444;
-  text-decoration: none;
-  transition: color 0.3s;
+/* ==============================
+   テーブル
+============================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
-
-a:hover {
-  color: #666;
-}
-
-/* メッセージ */
-#message {
-  margin-bottom: 20px;
+table th,
+table td {
+  border: 1px solid #ddd;
   padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
   text-align: center;
+  background-color: #fff;
+}
+table th {
+  position: sticky;
+  top: 0;
+  background-color: #666;
+  color: white;
+}
+table td:first-child,
+table th:first-child {
+  position: sticky;
+  left: 0;
+  background-color: #666;
+  color: white;
+  font-weight: bold;
+}
+table td:first-child {
+  background-color: #555;
 }
 
-/* エラーメッセージ */
-#message.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+/* ==============================
+   モーダル
+============================== */
+.modal {
+  display: none; /* 初期は非表示 */
+  position: fixed; /* 画面全体に固定 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒背景 */
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+  z-index: 1000; /* 前面に表示 */
 }
 
-/* 成功メッセージ */
-#message.success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+.modal-content {
+  background-color: white; /* モーダルの背景色 */
+  padding: 20px; /* 内側の余白 */
+  border-radius: 8px; /* 角を丸める */
+  text-align: center; /* テキスト中央揃え */
+  width: 300px; /* モーダルの幅 */
+  max-width: 90%; /* 小さい画面対応 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* シャドウを追加 */
+  animation: modal-fade-in 0.3s ease-in-out; /* アニメーションの適用 */
 }
 
-/* リスト */
+/* パスワードモーダル */
+#password-modal {
+  display: none; /* 初期は非表示 */
+  position: fixed; /* 画面全体に対して固定 */
+  top: 50%; /* 縦方向の中央揃え */
+  left: 50%; /* 横方向の中央揃え */
+  transform: translate(-50%, -50%); /* 真の中央揃え */
+  background-color: white; /* モーダルの背景色 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 軽い影 */
+  border-radius: 8px; /* 角を丸める */
+  padding: 20px; /* 内側の余白 */
+  z-index: 1000; /* 最前面に表示 */
+  width: 300px; /* モーダルの幅 */
+  max-width: 90%; /* 小さい画面に対応 */
+  text-align: center; /* テキストを中央揃え */
+}
+
+/* ==============================
+ リストのデザイン
+============================== */
+
 ul {
-  list-style: none;
-  padding: 0;
+  list-style: none; /* マーカーを無効化 */
+  padding: 0; /* 左側の余白を削除 */
+  margin: 0; /* 外側の余白を削除 */
 }
 
 ul li {
@@ -174,7 +248,7 @@ ul li a {
   font-size: 16px;
   color: #333;
   padding: 10px;
-  display: block;
+  display: block; /* 全体クリック可能 */
   background-color: #e9e9e9;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -187,7 +261,57 @@ ul li a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* レスポンシブ対応 */
+/* ==============================
+   レスポンシブ対応
+============================== */
+.tabs {
+  display: flex;
+  justify-content: center; /* 中央揃え */
+  margin-bottom: 20px; /* タブの下の余白 */
+  border-bottom: 2px solid #ccc; /* 下線 */
+}
+
+.tab-button {
+  padding: 10px 20px; /* ボタンの内側余白 */
+  background-color: #f5f5f5; /* ボタンの背景色 */
+  color: #333; /* ボタンの文字色 */
+  border: none; /* ボーダーなし */
+  border-radius: 12px; /* 丸みを追加 */
+  cursor: pointer; /* ポインタ表示 */
+  margin: 0 5px; /* ボタン間の間隔 */
+  font-weight: bold; /* 太字 */
+  transition: background-color 0.3s, color 0.3s; /* ホバー時のエフェクト */
+}
+
+.tab-button.active {
+  background-color: #333; /* アクティブ時の背景色 */
+  color: white; /* アクティブ時の文字色 */
+  border-bottom-left-radius: 0; /* 下部分を直角に */
+  border-bottom-right-radius: 0; /* 下部分を直角に */
+}
+
+.tab-button:hover {
+  background-color: #ddd; /* ホバー時の背景色 */
+}
+
+/* タブの内容 */
+.tab-content {
+  display: none; /* 初期状態は非表示 */
+  padding: 20px; /* 内容の内側余白 */
+  background-color: white; /* タブ内容の背景色 */
+  border: 1px solid #ddd; /* ボーダー */
+  border-radius: 0 12px 12px 12px; /* 上部を直角にして他を丸く */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+}
+
+/* アクティブなタブを表示 */
+.tab-content.active {
+  display: block;
+}
+
+/* ==============================
+   レスポンシブ対応
+============================== */
 @media (max-width: 768px) {
   header nav ul {
     flex-direction: column;
@@ -197,440 +321,20 @@ ul li a:hover {
   header nav ul li {
     text-align: center;
   }
-}
 
-/* ===== 特定ボタン: グループを作成する ===== */
-.create-group-btn {
-  background-color: #000; /* 黒背景 */
-  color: #fff; /* 白文字 */
-  border: 2px solid #000; /* 黒枠 */
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  display: inline-block;
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-}
-
-.create-group-btn:hover {
-  background-color: #fff; /* ホバー時は白背景 */
-  color: #000; /* 黒文字 */
-  border: 2px solid #000; /* 黒枠 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* シャドウを追加 */
-}
-
-.create-group-btn:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* フォーカス時の効果 */
-}
-
-/* グループ */
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #ccc;
-}
-
-.tab-button {
-  padding: 10px 20px;
-  background-color: #f5f5f5;
-  color: #333;
-  border: none;
-  border-radius: 5px 5px 0 0;
-  cursor: pointer;
-  margin: 0 5px;
-  font-weight: bold;
-}
-
-.tab-button.active {
-  background-color: #333;
-  color: white;
-  border-bottom: 2px solid white;
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table th,
-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  background-color: #fff;
-}
-
-table th {
-  position: sticky;
-  top: 0;
-  background-color: #666;
-  color: white;
-}
-
-table td:first-child,
-table th:first-child {
-  position: sticky;
-  left: 0;
-  background-color: #eee;
-}
-
-/* 左側カラムとその以下のセルのスタイル */
-table td:first-child,
-table th:first-child {
-  position: sticky;
-  left: 0;
-  background-color: #666; /* カラムの背景色 */
-  color: white; /* カラムの文字色 */
-  font-weight: bold;
-  text-align: center; /* 水平方向中央揃え */
-  vertical-align: middle; /* 垂直方向中央揃え */
-}
-
-table td:first-child {
-  background-color: #555; /* 左カラム以下のセルの背景色 */
-  color: white; /* 左カラム以下のセルの文字色 */
-  text-align: center; /* 水平方向中央揃え */
-  vertical-align: middle; /* 垂直方向中央揃え */
-}
-
-/* ===== モーダルウィンドウ ===== */
-.modal {
-  display: none; /* 初期は非表示 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 背景を半透明に */
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #333;
-}
-
-fieldset {
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-legend {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-input[type="number"] {
-  width: 100px;
-}
-
-#column-search {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-#column-search input {
-  padding: 5px;
-  font-size: 14px;
-}
-
-#column-search button {
-  padding: 5px 10px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* テーブルの行を並び替えるためのスタイル */
-table tbody tr {
-  display: table-row;
-  order: 0;
-  transition: all 0.3s ease;
-}
-
-/* 検索ボックスのデザイン */
-#search-input {
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* モーダルの基本スタイル */
-.modal {
-  display: none; /* 初期は非表示 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 背景を半透明に */
-  z-index: 1000;
-  display: flex; /* フレックスボックスで中央揃え */
-  justify-content: center; /* 水平方向の中央揃え */
-  align-items: center; /* 垂直方向の中央揃え */
-}
-
-/* モーダルコンテンツ */
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-  max-width: 90%; /* 小さい画面対応 */
-  position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 軽いシャドウ */
-}
-
-/* アニメーション効果 */
-@keyframes modal-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* モーダル内の閉じるボタン */
-.modal-content .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* OK!ボタン */
-.modal-ok-btn {
-  background-color: #4caf50; /* 緑 */
-  color: white;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-ok-btn:hover {
-  background-color: #45a049;
-}
-
-/* やめるボタン */
-.modal-cancel-btn {
-  background-color: #f44336; /* 赤 */
-  color: white;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-cancel-btn:hover {
-  background-color: #e53935;
-}
-
-/* 小さい画面対応 */
-@media (max-width: 768px) {
   .modal-content {
     width: 90%;
     padding: 15px;
   }
 }
 
-#add-tab-modal {
-  display: none; /* 初期は非表示 */
-}
-
-/* タブラッパー */
-.tab-wrapper {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 10px;
-}
-
-/* 削除ボタン */
-.delete-tab-btn {
-  background-color: #f44336; /* 赤 */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 5px 10px;
-  margin-left: 5px;
-  font-size: 14px;
-}
-
-.delete-tab-btn:hover {
-  background-color: #e53935;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-  position: relative;
-}
-
-.modal-content .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.modal-ok-btn {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-cancel-btn {
-  background-color: #f44336;
-  color: white;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.table-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.control-btn {
-  background-color: #1b1b1b;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.control-btn:hover {
-  background-color: #1b1b1b;
-}
-
-.control-btn:active {
-  background-color: #1b1b1b;
-}
-
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-}
-
-.modal-content button {
-  margin: 10px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-delete-btn {
-  background-color: #f44336;
-  color: white;
-}
-
-.modal-cancel-btn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.delete-row-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.delete-row-btn:hover {
-  background-color: #d32f2f;
-}
-
-.table-controls {
-  margin-top: 10px;
-  text-align: right;
-}
-
-.non-editable {
-  background-color: #f9f9f9;
-  text-align: center;
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* 上からスライドイン */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* 元の位置 */
+  }
 }
