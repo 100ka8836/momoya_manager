@@ -1,57 +1,78 @@
-async function disableEditMode() {
-  isEditing = false;
-  editButton.style.display = "inline-block";
-  saveButton.style.display = "none";
+document.addEventListener("DOMContentLoaded", () => {
+  const editButton = document.getElementById("edit-table-btn");
+  const saveButton = document.getElementById("save-table-btn");
+  const tableBody = document.getElementById("table-body");
+  let isEditing = false;
 
-  const updatedData = [];
+  // 編集モードを有効にする
+  function enableEditMode() {
+    isEditing = true;
+    editButton.style.display = "none"; // 編集ボタンを非表示
+    saveButton.style.display = "inline-block"; // 完了ボタンを表示
 
-  // 各行を処理
-  Array.from(characterTableBody.querySelectorAll("tr")).forEach((row) => {
-    const itemId = row.dataset.itemId; // 行のアイテムIDを取得
+    Array.from(tableBody.querySelectorAll("td")).forEach((cell) => {
+      if (!cell.classList.contains("delete-cell")) {
+        const originalText = cell.textContent.trim();
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = originalText === "-" ? "" : originalText; // "-" は空白に
+        cell.textContent = "";
+        cell.appendChild(input);
+      }
+    });
+  }
 
-    const values = Array.from(row.querySelectorAll("td"))
-      .filter((cell) => !cell.classList.contains("delete-cell")) // 削除セルを無視
-      .map((cell, index) => {
+  // 編集モードを無効にしてデータを保存
+  async function disableEditMode() {
+    isEditing = false;
+    editButton.style.display = "inline-block"; // 編集ボタンを表示
+    saveButton.style.display = "none"; // 完了ボタンを非表示
+
+    const updatedData = [];
+
+    Array.from(tableBody.querySelectorAll("tr")).forEach((row) => {
+      const itemId = row.dataset.itemId;
+      const rowValues = [];
+
+      Array.from(row.querySelectorAll("td")).forEach((cell) => {
         const input = cell.querySelector("input");
-        const value = input ? input.value.trim() : cell.textContent.trim();
-
-        // ヘッダーからキャラクターIDを取得
-        const characterId = document.querySelector(
-          `#table-head-row th:nth-child(${index + 2})`
-        )?.dataset.characterId;
-
-        if (input) cell.textContent = value || "-"; // 入力欄を元の表示に戻す
-
-        return {
-          value: value || "-",
-          character_id: characterId
-        };
+        if (input) {
+          const value = input.value.trim() || "-";
+          rowValues.push(value);
+          cell.textContent = value; // フォームをテキストに戻す
+        }
       });
 
-    values.forEach((value) => {
-      updatedData.push({ item_id: itemId, ...value });
+      updatedData.push({ item_id: itemId, values: rowValues });
     });
+
+    try {
+      const response = await fetch("api/saveOtherItems.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ updates: updatedData })
+      });
+      const result = await response.json();
+      if (!result.success) {
+        console.error("保存エラー:", result.message);
+        alert("保存中にエラーが発生しました: " + result.message);
+      } else {
+        alert("保存が完了しました");
+      }
+    } catch (error) {
+      console.error("通信エラー:", error);
+    }
+  }
+
+  // 編集ボタンのイベント
+  editButton.addEventListener("click", () => {
+    if (!isEditing) enableEditMode();
   });
 
-  // サーバーにデータを送信
-  try {
-    const response = await fetch("saveEditedRow.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ updates: updatedData })
-    });
-
-    const result = await response.json();
-    if (!result.success) {
-      console.error("保存エラー:", result.message);
-      alert(`保存中にエラーが発生しました: ${result.message}`);
-    } else {
-      alert("変更が保存されました");
-    }
-  } catch (error) {
-    console.error("通信エラー:", error);
-    alert("通信エラーが発生しました");
-  }
-}
+  // 完了ボタンのイベント
+  saveButton.addEventListener("click", () => {
+    if (isEditing) disableEditMode();
+  });
+});

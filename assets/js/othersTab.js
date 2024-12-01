@@ -13,62 +13,102 @@ document.addEventListener("DOMContentLoaded", () => {
   async function initializeTable() {
     try {
       const response = await fetch(
-        `fetch_other_items_with_characters.php?group_id=${groupId}`
+        `api/fetchOtherItems.php?group_id=${groupId}`
       );
       const data = await response.json();
 
-      // ヘッダーを生成
-      generateTableHeader(data.characters);
+      if (data.success) {
+        // ヘッダーを生成
+        generateTableHeader(data.characters);
 
-      // ボディを生成
-      data.items.forEach((item) => {
-        addRowForItem(item.item_name, item.id, data.characters.length);
-      });
+        // ボディを生成
+        populateTable(data.items, data.characters);
+      } else {
+        console.error("データ取得エラー:", data.message);
+      }
     } catch (error) {
-      console.error("テーブルデータ取得エラー:", error);
+      console.error("通信エラー:", error);
     }
   }
 
   // テーブルヘッダーを生成
   function generateTableHeader(characters) {
+    tableHeadRow.innerHTML = ""; // 既存のヘッダーをリセット
+
     const itemHeader = document.createElement("th");
     itemHeader.textContent = "項目";
     tableHeadRow.appendChild(itemHeader);
 
     characters.forEach((character) => {
       const charHeader = document.createElement("th");
-      charHeader.textContent = character.name;
+      charHeader.textContent = character.name; // キャラクター名を表示
       tableHeadRow.appendChild(charHeader);
+    });
+
+    // 最後に削除ボタン用の列
+    const actionHeader = document.createElement("th");
+    actionHeader.textContent = "操作";
+    tableHeadRow.appendChild(actionHeader);
+  }
+
+  // テーブルボディを生成
+  function populateTable(items, characters) {
+    tableBody.innerHTML = ""; // テーブルをリセット
+
+    items.forEach((item) => {
+      const row = document.createElement("tr");
+      row.dataset.itemId = item.item_id;
+
+      // 項目名セル
+      const itemCell = document.createElement("td");
+      itemCell.textContent = item.item_name;
+      row.appendChild(itemCell);
+
+      // 各キャラクターの値をセルに追加
+      characters.forEach((character) => {
+        const valueCell = document.createElement("td");
+        valueCell.textContent = item.values[character.id] || "-"; // 値がなければ "-"
+        row.appendChild(valueCell);
+      });
+
+      // 削除ボタンセル
+      const deleteCell = document.createElement("td");
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "×";
+      deleteButton.classList.add("delete-row-btn");
+      deleteButton.addEventListener("click", () => {
+        const confirmDelete = confirm("この行を削除しますか？");
+        if (confirmDelete) {
+          deleteRow(row);
+        }
+      });
+      deleteCell.appendChild(deleteButton);
+      row.appendChild(deleteCell);
+
+      tableBody.appendChild(row);
     });
   }
 
-  // 行として項目を追加する
-  function addRowForItem(itemName, itemId, characterCount) {
-    const row = document.createElement("tr");
-    row.dataset.itemId = itemId;
-
-    // 項目名セル
-    const itemCell = document.createElement("td");
-    itemCell.textContent = itemName;
-    row.appendChild(itemCell);
-
-    // キャラクター列のセル
-    for (let i = 0; i < characterCount; i++) {
-      const charCell = document.createElement("td");
-      charCell.textContent = "-";
-      row.appendChild(charCell);
+  // 行削除処理
+  async function deleteRow(row) {
+    const itemId = row.dataset.itemId;
+    try {
+      const response = await fetch(
+        `api/deleteOtherItem.php?item_id=${itemId}`,
+        {
+          method: "DELETE"
+        }
+      );
+      const result = await response.json();
+      if (result.success) {
+        row.remove();
+        alert("行が削除されました");
+      } else {
+        alert("削除に失敗しました: " + result.message);
+      }
+    } catch (error) {
+      console.error("削除エラー:", error);
     }
-
-    // 削除ボタンのセル
-    const deleteCell = document.createElement("td");
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "×";
-    deleteButton.classList.add("delete-row-btn");
-
-    deleteCell.appendChild(deleteButton);
-    row.appendChild(deleteCell);
-
-    tableBody.appendChild(row);
   }
 
   // 初期化処理を実行

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const tables = document.querySelectorAll("table[id='sortable-table']");
+  // すべてのテーブルを対象にする
+  const tables = document.querySelectorAll("table");
 
   tables.forEach((table) => {
     const searchInput = table
@@ -18,20 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        // 検索条件に合致する行を一時的に先頭に移動
+        // 条件に合う行と合わない行に分ける
         const matchingRows = rows.filter((row) =>
           row
-            .querySelector("td:first-child")
-            .textContent.toLowerCase()
+            .querySelector("td:first-child") // 最初の列を検索対象にする
+            ?.textContent.toLowerCase()
             .includes(query)
         );
         const nonMatchingRows = rows.filter(
           (row) => !matchingRows.includes(row)
         );
 
-        tbody.innerHTML = ""; // テーブルを一旦クリア
+        // tbody をクリアして、検索に合致する行を先頭に並べ替える
+        tbody.innerHTML = "";
         matchingRows.forEach((row) => tbody.appendChild(row)); // 該当行を先頭に追加
-        nonMatchingRows.forEach((row) => tbody.appendChild(row)); // それ以外を追加
+        nonMatchingRows.forEach((row) => tbody.appendChild(row)); // それ以外を後ろに追加
       });
     }
   });

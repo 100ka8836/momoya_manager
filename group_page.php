@@ -49,15 +49,32 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
     <meta charset="UTF-8">
     <title>グループ詳細</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- タブ切り替えスクリプト: タブの表示切り替えと現在のタブ状態を localStorage に保存 -->
     <script src="assets/js/tabs.js" defer></script>
+
+    <!-- テーブルのソートスクリプト: 最初のセルをクリックして行を昇順または降順に並べ替え -->
     <script src="assets/js/sort_table.js" defer></script>
+
+    <!-- 全タブ共通の検索スクリプト: テーブルの検索機能を提供し、検索条件に合致する行をトップに持ってくる -->
     <script src="assets/js/search_table.js" defer></script>
+
+    <!-- その他アイテム追加スクリプト: 新しい行をテーブルに追加し、削除ボタンを設定 -->
     <script src="assets/js/addOtherItem.js" defer></script>
+
+    <!-- その他タブ初期化スクリプト: グループデータを取得し、テーブルのヘッダーと行を生成 -->
     <script src="assets/js/othersTab.js" defer></script>
+
+    <!-- その他アイテム編集スクリプト: テーブルデータを編集可能にし、変更をサーバーに保存 -->
     <script src="assets/js/editOtherItem.js" defer></script>
+
+    <!-- 行削除スクリプト: 他のテーブル行の削除機能を管理 -->
     <script src="assets/js/deleteRow.js"></script>
+
+    <!-- その他アイテム削除スクリプト: テーブルの行を削除し、サーバーと同期 -->
     <script src="assets/js/deleteOtherItem.js" defer></script>
 
+    <!-- その他タブ専用のスクリプト: テーブルの検索機能を提供し、検索条件に合致する行をトップに持ってくる -->
+    <script src="assets/js/search_others_tab.js"></script>
 
 </head>
 
@@ -221,9 +238,12 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
         </div>
 
 
-
+        <!-- その他タブ -->
         <div id="others" class="tab-content">
             <table id="character-table" class="character-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+                </div>
                 <thead>
                     <tr id="table-head-row">
                         <!-- 「項目」とキャラクター名が動的に追加される -->

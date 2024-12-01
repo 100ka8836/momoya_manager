@@ -96,8 +96,12 @@ $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
             /* ホバー時に少し暗く */
         }
     </style>
+    <!-- グループ管理スクリプト: グループの選択、パスワード入力モーダルの表示、認証処理を管理 -->
     <script src="assets/js/group_handler.js" defer></script>
+
+    <!-- フォーム送信管理スクリプト: フォームの非同期送信を管理し、サーバー応答をユーザーに表示 -->
     <script src="assets/js/form_handler.js" defer></script>
+
 
 </head>
 
