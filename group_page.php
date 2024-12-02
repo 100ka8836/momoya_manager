@@ -62,16 +62,10 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
     <script src="assets/js/addOtherItem.js" defer></script>
 
     <!-- その他タブ初期化スクリプト: グループデータを取得し、テーブルのヘッダーと行を生成 -->
-    <script src="assets/js/othersTab.js" defer></script>
-
-    <!-- その他アイテム編集スクリプト: テーブルデータを編集可能にし、変更をサーバーに保存 -->
-    <script src="assets/js/editOtherItem.js" defer></script>
+    <script type="module" src="/momoya_character_manager/assets/js/othersTab.js"></script>
 
     <!-- 行削除スクリプト: 他のテーブル行の削除機能を管理 -->
     <script src="assets/js/deleteRow.js"></script>
-
-    <!-- その他アイテム削除スクリプト: テーブルの行を削除し、サーバーと同期 -->
-    <script src="assets/js/deleteOtherItem.js" defer></script>
 
     <!-- その他タブ専用のスクリプト: テーブルの検索機能を提供し、検索条件に合致する行をトップに持ってくる -->
     <script src="assets/js/search_others_tab.js"></script>
@@ -256,7 +250,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
             <div class="table-controls">
                 <button id="add-item-btn" class="control-btn">+</button>
                 <button id="edit-table-btn" class="control-btn">編集</button>
-                <button id="save-table-btn" class="control-btn" style="display: none;">完了</button>
+                <button id="save-table-btn" class="control-btn" style="display: none;">保存</button>
+
             </div>
         </div>
 

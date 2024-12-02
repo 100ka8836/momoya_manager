@@ -11,13 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // サーバーに削除リクエストを送信
     try {
-      const response = await fetch("delete_other_item.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({ item_id: itemId })
-      });
+      const response = await fetch(
+        "/momoya_character_manager/api/delete_other_item.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ item_id: itemId })
+        }
+      );
 
       const result = await response.json();
       if (result.success) {
@@ -60,13 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // 初期化関数で既存の行に削除ボタンを追加
   async function fetchAndPopulateTable() {
     try {
-      const response = await fetch("fetch_other_items_with_characters.php");
+      const response = await fetch(
+        "/momoya_character_manager/api/fetchOtherItems.php?group_id=5"
+      );
       const data = await response.json();
 
-      // テーブルデータを生成
-      data.items.forEach((item) => {
-        addRowForItem(item.item_name, item.id, data.characters.length);
-      });
+      if (data.items && Array.isArray(data.items)) {
+        // テーブルデータを生成
+        data.items.forEach((item) => {
+          addRowForItem(
+            item.item_name,
+            item.id,
+            data.characters ? data.characters.length : 0
+          );
+        });
+      } else {
+        console.error("レスポンスに items が含まれていません:", data);
+      }
     } catch (error) {
       console.error("データ取得エラー:", error);
     }

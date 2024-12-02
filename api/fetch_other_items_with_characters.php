@@ -1,7 +1,8 @@
 <?php
+require '../includes/db.php';
+
 header("Content-Type: application/json");
 
-// グループIDを取得
 $groupId = $_GET['group_id'] ?? null;
 
 if (!$groupId) {
@@ -9,22 +10,21 @@ if (!$groupId) {
     exit();
 }
 
-// グループIDを使ったデータ取得処理
 try {
-    // 仮のデータ（実際にはデータベースクエリを使用）
-    $items = [
-        ["id" => "1", "item_name" => "項目1"],
-        ["id" => "2", "item_name" => "項目2"]
-    ];
-    $characters = [
-        ["id" => "1", "name" => "キャラクター1"],
-        ["id" => "2", "name" => "キャラクター2"]
-    ];
+    // キャラクター情報を取得
+    $characterStmt = $pdo->prepare("SELECT id, name FROM characters WHERE group_id = ?");
+    $characterStmt->execute([$groupId]);
+    $characters = $characterStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 項目情報を取得
+    $itemStmt = $pdo->prepare("SELECT id, item_name FROM other_items WHERE group_id = ?");
+    $itemStmt->execute([$groupId]);
+    $items = $itemStmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         "success" => true,
-        "items" => $items,
-        "characters" => $characters
+        "characters" => $characters,
+        "items" => $items
     ]);
 } catch (Exception $e) {
     echo json_encode(["success" => false, "message" => $e->getMessage()]);

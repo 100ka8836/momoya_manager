@@ -122,13 +122,14 @@ $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p style="color: red;">エラー: <?= htmlspecialchars($_GET['error']) ?></p>
         <?php endif; ?>
 
-        <!-- グループ追加フォーム -->
-        <h2>グループを追加</h2>
         <form method="POST" action="create_group_handler.php">
             <label>グループ名: <input type="text" name="name" required></label>
             <label>パスワード: <input type="password" name="password" required></label>
             <button type="submit">グループを作成</button>
+            <div class="message"></div> <!-- メッセージ表示用 -->
         </form>
+
+
 
         <!-- グループリスト -->
         <h2>既存のグループ</h2>

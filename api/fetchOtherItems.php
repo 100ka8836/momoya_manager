@@ -1,9 +1,7 @@
 <?php
-header("Content-Type: application/json");
+require '../includes/db.php';
 
-// データベース接続
-require_once __DIR__ . '/../includes/db.php';
-
+header('Content-Type: application/json');
 
 try {
     $groupId = $_GET['group_id'] ?? null;
@@ -22,7 +20,7 @@ try {
     $characterStmt->execute([':group_id' => $groupId]);
     $characters = $characterStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 項目と値を取得
+    // 項目と関連値を取得
     $itemsStmt = $pdo->prepare("
         SELECT 
             o.id AS item_id, 
@@ -58,6 +56,5 @@ try {
         "items" => array_values($items),
     ]);
 } catch (Exception $e) {
-    echo json_encode(["success" => false, "message" => $e->getMessage()]);
+    echo json_encode(["success" => false, "message" => "データ取得中にエラーが発生しました: " . $e->getMessage()]);
 }
-?>

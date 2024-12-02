@@ -2,6 +2,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const characterTableBody = document.querySelector("#character-table tbody");
   const addItemBtn = document.getElementById("add-item-btn");
 
+  // 新しい行を追加する関数
+  function addRowForItem(itemName, itemId, characterCount) {
+    const tr = document.createElement("tr");
+    tr.dataset.itemId = itemId;
+
+    // 項目名セル
+    const itemCell = document.createElement("td");
+    itemCell.textContent = itemName;
+    tr.appendChild(itemCell);
+
+    // キャラクター列のセル
+    for (let i = 0; i < characterCount; i++) {
+      const charCell = document.createElement("td");
+      charCell.textContent = "-";
+      tr.appendChild(charCell);
+    }
+
+    // 操作セル（削除ボタン）
+    const deleteCell = document.createElement("td");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "×";
+    deleteButton.classList.add("delete-row-btn");
+    deleteButton.addEventListener("click", () => {
+      const confirmDelete = confirm("この行を削除しますか？");
+      if (confirmDelete) {
+        deleteRow(tr);
+      }
+    });
+
+    deleteCell.appendChild(deleteButton);
+    tr.appendChild(deleteCell);
+
+    characterTableBody.appendChild(tr);
+  }
+
   // サーバーに新しいデータを保存する関数
   async function addNewItem(groupId, itemName) {
     try {
@@ -17,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const itemId = result.item_id;
         const characterCount =
           document.querySelector("#character-table thead tr").children.length -
-          1;
+          2; // 「項目」列と「操作」列を除外
         addRowForItem(itemName, itemId, characterCount);
       } else {
         console.error(result.message);
@@ -29,47 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // テーブルに新しい行を追加する関数
-  function addRowForItem(itemName, itemId, characterCount) {
-    const tr = document.createElement("tr");
-    tr.dataset.itemId = itemId;
-
-    const itemCell = document.createElement("td");
-    itemCell.textContent = itemName;
-    tr.appendChild(itemCell);
-
-    for (let i = 0; i < characterCount; i++) {
-      const charCell = document.createElement("td");
-      charCell.textContent = "-";
-      tr.appendChild(charCell);
-    }
-
-    const deleteCell = createDeleteButton(tr);
-    tr.appendChild(deleteCell);
-
-    characterTableBody.appendChild(tr);
-  }
-
-  // 削除ボタンを生成する関数
-  function createDeleteButton(row) {
-    const deleteCell = document.createElement("td");
-    deleteCell.classList.add("delete-cell");
-
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "×";
-    deleteButton.classList.add("delete-row-btn");
-    deleteButton.addEventListener("click", () => {
-      const confirmDelete = confirm("この行を削除しますか？");
-      if (confirmDelete) {
-        deleteRow(row);
-      }
-    });
-
-    deleteCell.appendChild(deleteButton);
-    return deleteCell;
-  }
-
-  // 行を削除する関数
+  // 削除処理
   async function deleteRow(row) {
     const itemId = row.dataset.itemId;
     if (!itemId) {
@@ -78,20 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("delete_other_item.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ item_id: itemId })
-      });
+      const response = await fetch(
+        "/momoya_character_manager/api/delete_other_item.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ item_id: itemId }) // POSTデータを送信
+        }
+      );
 
-      const result = await response.json();
+      const result = await response.json(); // レスポンスをJSON形式で解析
       if (result.success) {
-        row.remove();
+        row.remove(); // 成功時に行を削除
       } else {
-        console.error("削除エラー:", result.message);
+        console.error("削除エラー:", result.message); // サーバーからのエラーメッセージを表示
       }
     } catch (error) {
-      console.error("削除リクエストエラー:", error);
+      console.error("削除リクエストエラー:", error); // ネットワークやサーバーエラーを表示
     }
   }
 
