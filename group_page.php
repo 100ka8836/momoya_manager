@@ -2,7 +2,6 @@
 require 'includes/db.php';
 require 'fetch_skills.php';
 
-
 // グループIDを取得
 $group_id = $_GET['group_id'] ?? null;
 $activeTab = $_GET['activeTab'] ?? 'basic';
@@ -10,7 +9,6 @@ $activeTab = $_GET['activeTab'] ?? 'basic';
 if (!$group_id) {
     die("グループが選択されていません。");
 }
-
 
 // グループに所属するキャラクターを取得
 $stmt = $pdo->prepare("
@@ -28,13 +26,12 @@ $stmt = $pdo->prepare("
 $stmt->execute([$group_id]);
 $characters = $stmt->fetchAll(PDO::FETCH_ASSOC) ?? [];
 
+// JavaScriptにキャラクターデータを渡す
 echo "<script>const characters = " . json_encode(array_map(function ($character) {
     return array_map(function ($value) {
         return $value !== null ? htmlspecialchars($value) : ''; // null の場合は空文字列を代入
     }, $character);
 }, $characters)) . ";</script>";
-
-
 
 // キャラクターが存在しない場合のエラーメッセージ
 if (empty($characters)) {
@@ -46,9 +43,15 @@ $skillsData = fetchSkills($group_id, $pdo);
 $skills = $skillsData['skills'];
 $all_skills = $skillsData['all_skills'];
 
+// 現在のグループに関連付けられたカテゴリを取得
+$stmt = $pdo->prepare("SELECT * FROM Categories WHERE group_id = ?");
+$stmt->execute([$group_id]);
+$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // タブ保持用のアクティブタブを取得
 $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -233,10 +236,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 
         <!-- その他タブ -->
         <div id="other" class="tab-content">
+            <h2>カテゴリと値</h2>
             <table id="sortable-table">
-                <div>
-                    <input type="text" class="column-search" placeholder="検索: 例 身長, 体重">
-                </div>
                 <thead>
                     <tr>
                         <th>カテゴリ</th>
@@ -247,34 +248,44 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                 </thead>
                 <tbody>
                     <?php
-                    // キャラクターとカテゴリ値の取得
-                    $stmt = $pdo->prepare("
-                        SELECT Characters.name AS character_name, Categories.name AS category_name, CharacterValues.value
-                        FROM CharacterValues
-                        JOIN Characters ON CharacterValues.character_id = Characters.id
-                        JOIN Categories ON CharacterValues.category_id = Categories.id
-                        WHERE Characters.group_id = ?
-                    ");
+                    // カテゴリを取得
+                    $stmt = $pdo->prepare("SELECT * FROM Categories WHERE group_id = ?");
                     $stmt->execute([$group_id]);
-                    $characterValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    // カテゴリごとに表示
-                    $categories = [];
-                    foreach ($characterValues as $cv) {
-                        $categories[$cv['category_name']][$cv['character_name']] = $cv['value'];
-                    }
-
-                    foreach ($categories as $category => $values): ?>
+                    // カテゴリごとに行を作成
+                    foreach ($categories as $category): ?>
                         <tr>
-                            <td><?= htmlspecialchars($category) ?></td>
+                            <td><?= htmlspecialchars($category['name']); ?></td>
                             <?php foreach ($characters as $character): ?>
-                                <td><?= htmlspecialchars($values[$character['name']] ?? '-') ?></td>
+                                <td>
+                                    <?php
+                                    // カテゴリ値を取得
+                                    $stmtValue = $pdo->prepare("
+                                SELECT value
+                                FROM CharacterValues
+                                WHERE character_id = ? AND category_id = ?
+                            ");
+                                    $stmtValue->execute([$character['id'], $category['id']]);
+                                    $value = $stmtValue->fetchColumn();
+                                    echo htmlspecialchars($value ?? '-'); // 値がない場合はデフォルトで '-'
+                                    ?>
+                                </td>
                             <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+            <!-- カテゴリ追加フォーム -->
+            <form id="add-category-form" method="POST" action="add_category.php">
+                <input type="hidden" name="group_id" value="<?= htmlspecialchars($group_id); ?>">
+                <label for="category-name">カテゴリ名を入力してください:</label>
+                <input type="text" id="category-name" name="category_name" required placeholder="カテゴリ名を入力">
+                <button type="submit">＋</button>
+            </form>
         </div>
+
 
 
 
