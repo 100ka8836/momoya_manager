@@ -72,6 +72,13 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 
     <!-- その他タブ専用スクリプト -->
     <script src="assets/js/other_tab.js" defer></script>
+
+    <!-- その他タブの編集について -->
+    <script src="assets/js/edit_category.js" defer></script>
+
+    <!-- その他タブの編集ボタン動作 -->
+    <script src="assets/js/edit_value.js" defer></script>
+
 </head>
 
 <body data-group-id="<?= htmlspecialchars($group_id) ?>">
@@ -234,9 +241,10 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
         </div>
 
 
-        <!-- その他タブ -->
         <div id="other" class="tab-content">
-            <h2>カテゴリと値</h2>
+            <div>
+                <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+            </div>
             <table id="sortable-table">
                 <thead>
                     <tr>
@@ -253,14 +261,12 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     $stmt->execute([$group_id]);
                     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    // カテゴリごとに行を作成
                     foreach ($categories as $category): ?>
                         <tr>
                             <td><?= htmlspecialchars($category['name']); ?></td>
                             <?php foreach ($characters as $character): ?>
-                                <td>
+                                <td id="value-cell-<?= $character['id'] ?>-<?= $category['id'] ?>">
                                     <?php
-                                    // カテゴリ値を取得
                                     $stmtValue = $pdo->prepare("
                                 SELECT value
                                 FROM CharacterValues
@@ -268,8 +274,10 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                             ");
                                     $stmtValue->execute([$character['id'], $category['id']]);
                                     $value = $stmtValue->fetchColumn();
-                                    echo htmlspecialchars($value ?? '-'); // 値がない場合はデフォルトで '-'
                                     ?>
+                                    <span class="value-display"><?= htmlspecialchars($value ?? '-') ?></span>
+                                    <button class="edit-button" style="display: none;"
+                                        onclick="editValue(<?= $character['id'] ?>, <?= $category['id'] ?>)">編集</button>
                                 </td>
                             <?php endforeach; ?>
                         </tr>
@@ -280,12 +288,14 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
             <!-- カテゴリ追加フォーム -->
             <form id="add-category-form" method="POST" action="add_category.php">
                 <input type="hidden" name="group_id" value="<?= htmlspecialchars($group_id); ?>">
-                <label for="category-name">カテゴリ名を入力してください:</label>
                 <input type="text" id="category-name" name="category_name" required placeholder="カテゴリ名を入力">
                 <button type="submit">＋</button>
             </form>
-        </div>
 
+            <!-- 値の変更ボタン -->
+            <button id="toggle-edit-mode">値の変更</button>
+
+        </div>
 
 
 

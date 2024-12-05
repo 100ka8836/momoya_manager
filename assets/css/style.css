@@ -324,6 +324,20 @@ th.desc::after {
 }
 
 /* ==============================
+   その他タブ
+============================== */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+.edit-button {
+  display: none;
+}
+
+/* ==============================
    レスポンシブ対応
 ============================== */
 @media (max-width: 768px) {
