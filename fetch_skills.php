@@ -1,31 +1,23 @@
 <?php
-require 'includes/db.php';
-
 function fetchSkills($group_id, $pdo)
 {
-    if (!$group_id) {
-        return [];
-    }
-
-    // キャラクターの技能を取得
     $stmt = $pdo->prepare("
-        SELECT character_id, skill_name, skill_value
-        FROM character_skills
-        WHERE character_id IN (SELECT id FROM characters WHERE group_id = ?)
+        SELECT cs.character_id, cs.skill_name, cs.skill_value
+        FROM character_skills cs
+        JOIN characters c ON cs.character_id = c.id
+        WHERE c.group_id = ?
     ");
     $stmt->execute([$group_id]);
-    $skills = $stmt->fetchAll(PDO::FETCH_ASSOC) ?? [];
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 技能リストを生成
-    $all_skills = is_array($skills)
-        ? array_unique(array_map(fn($s) => $s['skill_name'], $skills))
-        : [];
-
-    // キャラクターIDごとに技能をグループ化
-    $grouped_skills = [];
-    foreach ($skills as $skill) {
-        $grouped_skills[$skill['character_id']][] = $skill;
+    $skills = [];
+    $all_skills = [];
+    foreach ($result as $row) {
+        $skills[$row['character_id']][$row['skill_name']] = $row['skill_value'];
+        if (!in_array($row['skill_name'], $all_skills)) {
+            $all_skills[] = $row['skill_name'];
+        }
     }
 
-    return ['skills' => $grouped_skills, 'all_skills' => $all_skills];
+    return ['skills' => $skills, 'all_skills' => $all_skills];
 }
