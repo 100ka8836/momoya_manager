@@ -70,7 +70,7 @@ header nav ul li a:hover {
 ============================== */
 main {
   width: 90%;
-  max-width: 1200px;
+  max-width: 1920px;
   margin-top: 20px;
   padding: 20px;
   background-color: white;
@@ -183,6 +183,7 @@ table th {
   top: 0;
   background-color: #666;
   color: white;
+  max-width: 90px; /* 列の最大幅を設定（必要に応じて調整） */
 }
 
 table td:first-child,
@@ -347,6 +348,41 @@ th.desc::after {
 
 .delete-button:hover {
   background-color: #cc0000;
+}
+
+/* 横並びにするスタイル */
+#add-category-form,
+#toggle-edit-mode {
+  display: inline-block; /* 横並びにする */
+  vertical-align: middle; /* 高さを揃える */
+  margin-right: 10px; /* 要素間の間隔 */
+}
+
+/* 追加: ボタンの高さをさらに調整 */
+#toggle-edit-mode {
+  position: relative; /* 相対位置を設定 */
+  top: -10px; /* 必要に応じて調整（上に動かす） */
+}
+
+/* 入力欄の幅調整 */
+#add-category-form input[type="text"] {
+  width: 200px; /* 必要に応じて変更可能 */
+  padding: 5px;
+}
+
+/* ボタンのスタイル */
+#add-category-form button,
+#toggle-edit-mode {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#add-category-form button:hover,
+#toggle-edit-mode:hover {
+  background-color: #ddd;
 }
 
 /* ==============================

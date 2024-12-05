@@ -16,15 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!firstCell) return;
 
       firstCell.addEventListener("click", () => {
-        // クリックされた行のすべてのセルを取得
-        const cells = Array.from(row.querySelectorAll("td")).slice(1);
+        // クリックされた行のすべてのセルを取得（最後の列は操作列として除外）
+        const cells = Array.from(row.querySelectorAll("td")).slice(1, -1);
 
         // 並び替え基準データを取得
         const columnData = cells.map((cell, index) => ({
-          index: index + 1, // 列番号 (1列目を除く)
+          index: index + 1, // 列番号（1列目を除外し、最後の列も除外）
           value: isNaN(cell.textContent.trim())
-            ? cell.textContent.trim()
-            : parseFloat(cell.textContent.trim()) // 数値か文字列かを判別
+            ? normalizeText(cell.textContent.trim()) // テキストを正規化
+            : parseFloat(cell.textContent.trim()) // 数値の場合
         }));
 
         // 昇順・降順の切り替え
@@ -46,10 +46,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         allRows.forEach((tr) => {
           const cells = Array.from(tr.children);
-          const reorderedCells = [cells[0], ...newOrder.map((i) => cells[i])];
+          const reorderedCells = [
+            cells[0], // 最初の列
+            ...newOrder.map((i) => cells[i]), // ソート対象の列
+            cells[cells.length - 1] // 最後の列（操作列）
+          ];
           reorderedCells.forEach((cell, i) => tr.appendChild(cell));
         });
       });
     });
   });
+
+  /**
+   * テキストを正規化して比較可能な状態に変換
+   * - 大文字小文字を区別しない
+   * - 半角全角を統一
+   * @param {string} text
+   * @returns {string}
+   */
+  function normalizeText(text) {
+    return text
+      .toLocaleLowerCase() // 大文字小文字を統一
+      .normalize("NFKC"); // 半角全角を統一
+  }
 });

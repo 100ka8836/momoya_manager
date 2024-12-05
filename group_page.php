@@ -242,9 +242,10 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 
         <!-- その他タブ -->
         <div id="other" class="tab-content">
-            <h2>カテゴリと値</h2>
-
             <table id="sortable-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+                </div>
                 <thead>
                     <tr>
                         <th>項目</th>

@@ -152,6 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['message'] = $message;
     $_SESSION['message_class'] = strpos($message, 'エラー') !== false ? 'error-message' : 'success-message';
 
-    header('Location: /create_character_charaeno.php?message=登録しました！&success=1');
+    // 正しいリダイレクトURLを指定
+    header('Location: /momoya_character_manager/create_character_charasheet.php' . urlencode($message) . '&success=1');
     exit;
+
 }
