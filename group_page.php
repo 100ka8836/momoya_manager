@@ -29,8 +29,11 @@ $stmt->execute([$group_id]);
 $characters = $stmt->fetchAll(PDO::FETCH_ASSOC) ?? [];
 
 echo "<script>const characters = " . json_encode(array_map(function ($character) {
-    return array_map('htmlspecialchars', $character);  // 各キャラクターのデータをエスケープ
+    return array_map(function ($value) {
+        return $value !== null ? htmlspecialchars($value) : ''; // null の場合は空文字列を代入
+    }, $character);
 }, $characters)) . ";</script>";
+
 
 
 // キャラクターが存在しない場合のエラーメッセージ
@@ -64,9 +67,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
     <!-- 全タブ共通の検索スクリプト: テーブルの検索機能を提供し、検索条件に合致する行をトップに持ってくる -->
     <script src="assets/js/search_table.js" defer></script>
 
-    <!-- その他タブ初期化スクリプト: グループデータを取得し、テーブルのヘッダーと行を生成 -->
-    <script type="module" src="assets/js/othersTab.js"></script>
-
+    <!-- その他タブ専用スクリプト -->
+    <script src="assets/js/other_tab.js" defer></script>
 </head>
 
 <body data-group-id="<?= htmlspecialchars($group_id) ?>">
@@ -76,7 +78,7 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
             <button class="tab-button active" data-tab="basic">基本</button>
             <button class="tab-button" data-tab="abilities">能力</button>
             <button class="tab-button" data-tab="skills">技能</button>
-            <button class="tab-button" data-tab="others">その他</button>
+            <button class="tab-button" data-tab="other">その他</button>
         </div>
 
         <!-- 基本情報タブ -->
@@ -230,24 +232,50 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 
 
         <!-- その他タブ -->
-        <div id="others" class="tab-content">
-            <table id="character-table" class="character-table">
+        <div id="other" class="tab-content">
+            <table id="sortable-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 身長, 体重">
+                </div>
                 <thead>
-                    <tr id="table-head-row">
-                        <!-- 「項目」とキャラクター名が動的に追加される -->
+                    <tr>
+                        <th>カテゴリ</th>
+                        <?php foreach ($characters as $character): ?>
+                            <th><?= htmlspecialchars($character['name']) ?></th>
+                        <?php endforeach; ?>
                     </tr>
                 </thead>
-                <tbody id="table-body">
-                    <!-- 各項目の行が動的に追加される -->
+                <tbody>
+                    <?php
+                    // キャラクターとカテゴリ値の取得
+                    $stmt = $pdo->prepare("
+                        SELECT Characters.name AS character_name, Categories.name AS category_name, CharacterValues.value
+                        FROM CharacterValues
+                        JOIN Characters ON CharacterValues.character_id = Characters.id
+                        JOIN Categories ON CharacterValues.category_id = Categories.id
+                        WHERE Characters.group_id = ?
+                    ");
+                    $stmt->execute([$group_id]);
+                    $characterValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    // カテゴリごとに表示
+                    $categories = [];
+                    foreach ($characterValues as $cv) {
+                        $categories[$cv['category_name']][$cv['character_name']] = $cv['value'];
+                    }
+
+                    foreach ($categories as $category => $values): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($category) ?></td>
+                            <?php foreach ($characters as $character): ?>
+                                <td><?= htmlspecialchars($values[$character['name']] ?? '-') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <!-- 項目追加フォーム -->
-            <div class="add-item-form">
-                <input type="text" id="new-item-name" placeholder="項目名を入力" />
-                <button id="add-item-btn">+</button>
-            </div>
         </div>
+
 
 
     </main>
