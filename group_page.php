@@ -240,18 +240,18 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
             </table>
         </div>
 
-
+        <!-- その他タブ -->
         <div id="other" class="tab-content">
-            <div>
-                <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
-            </div>
+            <h2>カテゴリと値</h2>
+
             <table id="sortable-table">
                 <thead>
                     <tr>
-                        <th>カテゴリ</th>
+                        <th>項目</th>
                         <?php foreach ($characters as $character): ?>
                             <th><?= htmlspecialchars($character['name']) ?></th>
                         <?php endforeach; ?>
+                        <th>操作</th> <!-- 削除ボタン用の列 -->
                     </tr>
                 </thead>
                 <tbody>
@@ -280,6 +280,14 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                                         onclick="editValue(<?= $character['id'] ?>, <?= $category['id'] ?>)">編集</button>
                                 </td>
                             <?php endforeach; ?>
+                            <td>
+                                <form method="POST" action="delete_category.php" style="display: inline;">
+                                    <input type="hidden" name="category_id"
+                                        value="<?= htmlspecialchars($category['id']); ?>">
+                                    <input type="hidden" name="group_id" value="<?= htmlspecialchars($group_id); ?>">
+                                    <button type="submit" class="delete-button">削除</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -288,14 +296,14 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
             <!-- カテゴリ追加フォーム -->
             <form id="add-category-form" method="POST" action="add_category.php">
                 <input type="hidden" name="group_id" value="<?= htmlspecialchars($group_id); ?>">
-                <input type="text" id="category-name" name="category_name" required placeholder="カテゴリ名を入力">
+                <input type="text" id="category-name" name="category_name" required placeholder="追加する項目名">
                 <button type="submit">＋</button>
             </form>
 
             <!-- 値の変更ボタン -->
-            <button id="toggle-edit-mode">値の変更</button>
-
+            <button id="toggle-edit-mode">キャラクター情報の変更</button>
         </div>
+
 
 
 

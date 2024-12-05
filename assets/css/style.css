@@ -17,6 +17,7 @@ a {
   text-decoration: none;
   transition: color 0.3s;
 }
+
 a:hover {
   color: #666;
 }
@@ -37,6 +38,7 @@ header nav {
   margin: 0 auto;
   padding: 0 20px;
 }
+
 header nav ul {
   list-style: none;
   display: flex;
@@ -45,6 +47,7 @@ header nav ul {
   margin: 0;
   padding: 0;
 }
+
 header nav ul li a {
   color: #ffffff;
   background-color: #333;
@@ -55,6 +58,7 @@ header nav ul li a {
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
+
 header nav ul li a:hover {
   color: #333;
   background-color: #ffffff;
@@ -95,6 +99,7 @@ button {
   margin: 10px;
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
+
 button:hover {
   background-color: black;
   color: white;
@@ -105,6 +110,7 @@ button:hover {
   background-color: #1b1b1b;
   color: white;
 }
+
 .control-btn:hover,
 .control-btn:active {
   background-color: #000;
@@ -118,6 +124,7 @@ button:hover {
   border-radius: 5px;
   font-size: 16px;
 }
+
 .create-group-btn:hover {
   background-color: #fff;
   color: #000;
@@ -146,6 +153,7 @@ form textarea {
   background-color: #f9f9f9;
   color: #333;
 }
+
 form input:focus,
 form select:focus,
 form textarea:focus {
@@ -161,6 +169,7 @@ table {
   border-collapse: collapse;
   margin-top: 20px;
 }
+
 table th,
 table td {
   border: 1px solid #ddd;
@@ -168,12 +177,14 @@ table td {
   text-align: center;
   background-color: #fff;
 }
+
 table th {
   position: sticky;
   top: 0;
   background-color: #666;
   color: white;
 }
+
 table td:first-child,
 table th:first-child {
   position: sticky;
@@ -182,6 +193,7 @@ table th:first-child {
   color: white;
   font-weight: bold;
 }
+
 table td:first-child {
   background-color: #555;
 }
@@ -190,54 +202,52 @@ table td:first-child {
    モーダル
 ============================== */
 .modal {
-  display: none; /* 初期は非表示 */
-  position: fixed; /* 画面全体に固定 */
+  display: none;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒背景 */
-  justify-content: center; /* 水平方向の中央揃え */
-  align-items: center; /* 垂直方向の中央揃え */
-  z-index: 1000; /* 前面に表示 */
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
-  background-color: white; /* モーダルの背景色 */
-  padding: 20px; /* 内側の余白 */
-  border-radius: 8px; /* 角を丸める */
-  text-align: center; /* テキスト中央揃え */
-  width: 300px; /* モーダルの幅 */
-  max-width: 90%; /* 小さい画面対応 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* シャドウを追加 */
-  animation: modal-fade-in 0.3s ease-in-out; /* アニメーションの適用 */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: modal-fade-in 0.3s ease-in-out;
 }
 
-/* パスワードモーダル */
 #password-modal {
-  display: none; /* 初期は非表示 */
-  position: fixed; /* 画面全体に対して固定 */
-  top: 50%; /* 縦方向の中央揃え */
-  left: 50%; /* 横方向の中央揃え */
-  transform: translate(-50%, -50%); /* 真の中央揃え */
-  background-color: white; /* モーダルの背景色 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 軽い影 */
-  border-radius: 8px; /* 角を丸める */
-  padding: 20px; /* 内側の余白 */
-  z-index: 1000; /* 最前面に表示 */
-  width: 300px; /* モーダルの幅 */
-  max-width: 90%; /* 小さい画面に対応 */
-  text-align: center; /* テキストを中央揃え */
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1000;
+  width: 300px;
+  max-width: 90%;
+  text-align: center;
 }
 
 /* ==============================
- リストのデザイン
+   リスト
 ============================== */
-
 ul {
-  list-style: none; /* マーカーを無効化 */
-  padding: 0; /* 左側の余白を削除 */
-  margin: 0; /* 外側の余白を削除 */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 ul li {
@@ -248,12 +258,12 @@ ul li a {
   font-size: 16px;
   color: #333;
   padding: 10px;
-  display: block; /* 全体クリック可能 */
+  display: block;
   background-color: #e9e9e9;
   border: 1px solid #ddd;
   border-radius: 5px;
   transition: background-color 0.3s, box-shadow 0.3s;
-  text-align: center; /* リンクを中央寄せ */
+  text-align: center;
 }
 
 ul li a:hover {
@@ -262,57 +272,58 @@ ul li a:hover {
 }
 
 /* ==============================
-   レスポンシブ対応
+   タブ
 ============================== */
 .tabs {
   display: flex;
-  justify-content: center; /* 中央揃え */
-  margin-bottom: 20px; /* タブの下の余白 */
-  border-bottom: 2px solid #ccc; /* 下線 */
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
 }
 
 .tab-button {
-  padding: 10px 20px; /* ボタンの内側余白 */
-  background-color: #f5f5f5; /* ボタンの背景色 */
-  color: #333; /* ボタンの文字色 */
-  border: none; /* ボーダーなし */
-  border-radius: 12px; /* 丸みを追加 */
-  cursor: pointer; /* ポインタ表示 */
-  margin: 0 5px; /* ボタン間の間隔 */
-  font-weight: bold; /* 太字 */
-  transition: background-color 0.3s, color 0.3s; /* ホバー時のエフェクト */
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 0 5px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .tab-button.active {
-  background-color: #333; /* アクティブ時の背景色 */
-  color: white; /* アクティブ時の文字色 */
-  border-bottom-left-radius: 0; /* 下部分を直角に */
-  border-bottom-right-radius: 0; /* 下部分を直角に */
+  background-color: #333;
+  color: white;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .tab-button:hover {
-  background-color: #ddd; /* ホバー時の背景色 */
+  background-color: #ddd;
 }
 
-/* タブの内容 */
 .tab-content {
-  display: none; /* 初期状態は非表示 */
-  padding: 20px; /* 内容の内側余白 */
-  background-color: white; /* タブ内容の背景色 */
-  border: 1px solid #ddd; /* ボーダー */
-  border-radius: 0 12px 12px 12px; /* 上部を直角にして他を丸く */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+  display: none;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0 12px 12px 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* アクティブなタブを表示 */
 .tab-content.active {
   display: block;
 }
 
-/* ==============================
-   その他タブのソート
-============================== */
+.edit-button {
+  display: none;
+}
 
+/* ==============================
+   その他タブ
+============================== */
 th.asc::after {
   content: " ↑";
   font-size: 0.8em;
@@ -323,18 +334,19 @@ th.desc::after {
   font-size: 0.8em;
 }
 
-/* ==============================
-   その他タブ
-============================== */
-.tab-content {
-  display: none;
-}
-.tab-content.active {
-  display: block;
+.delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
 }
 
-.edit-button {
-  display: none;
+.delete-button:hover {
+  background-color: #cc0000;
 }
 
 /* ==============================
@@ -359,10 +371,11 @@ th.desc::after {
 @keyframes modal-fade-in {
   from {
     opacity: 0;
-    transform: translateY(-20px); /* 上からスライドイン */
+    transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
-    transform: translateY(0); /* 元の位置 */
+    transform: translateY(0);
   }
 }
