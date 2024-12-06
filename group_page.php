@@ -90,7 +90,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
     <script src="assets/js/edit_basic_value.js" defer></script>
 
     <!-- 能力タブの編集ボタン機能 -->
-    <!-- <script src="assets/js/edit_ability_value.js" defer></script> -->
+    <script src="assets/js/edit_ability_value.js" defer></script>
+
 </head>
 
 <body data-group-id="<?= htmlspecialchars($group_id) ?>">

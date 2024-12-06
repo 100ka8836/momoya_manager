@@ -19,7 +19,7 @@ function editAbilityValue(characterId, abilityName) {
 
   // 入力フィールド
   const input = document.createElement("input");
-  input.type = "text";
+  input.type = "text"; // テキスト入力を許可
   input.name = "new_value";
   input.value = currentValue;
   input.required = true;
@@ -53,7 +53,7 @@ function editAbilityValue(characterId, abilityName) {
   form.appendChild(hiddenGroupId);
   form.appendChild(saveButton);
 
-  // 現在の値をフォームに置き換え
+  // セルの内容をフォームに置き換え
   cell.innerHTML = "";
   cell.appendChild(form);
 }
