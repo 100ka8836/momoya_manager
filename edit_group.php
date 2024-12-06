@@ -8,7 +8,7 @@ if (!$group_id) {
 }
 
 // グループ情報を取得
-$stmt = $pdo->prepare("SELECT name FROM groups WHERE id = ?");
+$stmt = $pdo->prepare("SELECT name FROM `groups` WHERE id = ?");
 $stmt->execute([$group_id]);
 $group = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -25,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if ($password) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("UPDATE groups SET name = ?, password = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE `groups` SET name = ?, password = ? WHERE id = ?");
             $stmt->execute([$name, $hashed_password, $group_id]);
         } else {
-            $stmt = $pdo->prepare("UPDATE groups SET name = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE `groups` SET name = ? WHERE id = ?");
             $stmt->execute([$name, $group_id]);
         }
         header("Location: groups.php?updated=1");

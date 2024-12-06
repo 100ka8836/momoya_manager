@@ -152,8 +152,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['message'] = $message;
     $_SESSION['message_class'] = strpos($message, 'エラー') !== false ? 'error-message' : 'success-message';
 
+
+    // 現在のスキームとホストを取得
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+
+    // フルURLを構築
+    $redirectUrl = $protocol . $host . '/momoya_character_manager/create_character_charasheet.php?message=' . urlencode($message) . '&success=1';
+
     // 正しいリダイレクトURLを指定
-    header('Location: /momoya_character_manager/create_character_charasheet.php' . urlencode($message) . '&success=1');
+    header('Location: ' . $redirectUrl);
     exit;
+
 
 }

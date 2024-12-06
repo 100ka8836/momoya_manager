@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        $stmt = $pdo->prepare("DELETE FROM groups WHERE id = ?");
+        $stmt = $pdo->prepare("DELETE FROM `groups` WHERE id = ?");
         $stmt->execute([$group_id]);
 
         // 削除後、グループ一覧にリダイレクト

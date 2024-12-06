@@ -11,31 +11,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $groupId = $_POST['group_id'] ?? null;
         $sourceUrl = $_POST['charaeno_url'] ?? null;
 
+        // 入力バリデーション
         if (!$formType || !$groupId || !$sourceUrl) {
             throw new Exception('必要なデータが不足しています。');
         }
 
-        // データ送信をcreate_character_handler.phpに委託
-        $response = @file_get_contents(
-            'http://localhost/momoya_character_manager/create_character_handler.php',
-            false,
-            stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => 'Content-Type: application/x-www-form-urlencoded',
-                    'content' => http_build_query($_POST)
-                ]
-            ])
-        );
-
-        if ($response === false) {
-            throw new Exception('リクエストが失敗しました: ' . error_get_last()['message']);
+        if (!filter_var($sourceUrl, FILTER_VALIDATE_URL)) {
+            throw new Exception('無効なURLが入力されました。');
         }
 
-        $responseData = json_decode($response, true);
+        if (strlen($sourceUrl) > 255) {
+            throw new Exception('キャラエノURLが長すぎます。');
+        }
 
-        if (!$responseData || !isset($responseData['success'])) {
-            throw new Exception('ハンドラーのレスポンスが無効です。');
+        if (!is_numeric($groupId)) {
+            throw new Exception('無効なグループIDです。');
+        }
+
+        // グループIDが有効か検証
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM `groups` WHERE id = ?");
+        $stmt->execute([$groupId]);
+        if ($stmt->fetchColumn() == 0) {
+            throw new Exception('無効なグループIDが指定されました。');
+        }
+
+        // データ送信をcreate_character_handler.phpに委託 (内部リクエスト)
+        ob_start();
+        $_POST['internal_request'] = true; // 内部リクエストであることを示すフラグ
+
+        // create_character_handler.php を直接呼び出し
+        include 'create_character_handler.php';
+
+        // 出力内容をキャプチャ
+        $response = ob_get_clean();
+
+        // HTTPレスポンスコードを確認
+        $httpCode = http_response_code() ?: 200;
+
+        if ($httpCode !== 200) {
+            throw new Exception("データ送信に失敗しました。HTTPコード: $httpCode\nレスポンス内容: $response");
+        }
+
+        // デバッグ用: レスポンスをログに記録
+        error_log("デバッグレスポンス: $response");
+
+        // JSONデコード
+        $responseData = json_decode($response, true);
+        if (json_last_error() !== JSON_ERROR_NONE || !isset($responseData['success'])) {
+            throw new Exception("JSONデコードエラー: " . json_last_error_msg() . "\nレスポンス内容: $response");
         }
 
         if ($responseData['success']) {
@@ -44,14 +67,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = $responseData['message'] ?? '登録に失敗しました。';
         }
     } catch (Exception $e) {
-        $message = 'エラー: ' . $e->getMessage();
+        error_log("エラー: " . $e->getMessage());
+        error_log("送信データ: " . print_r($_POST, true)); // デバッグログ追加
+        $message = 'エラーが発生しました。詳細は管理者にお問い合わせください。';
     }
+
 }
 
 // データベースからグループ一覧を取得
-$stmt = $pdo->query("SELECT id, name FROM groups");
+$stmt = $pdo->prepare("SELECT id, name FROM `groups`");
+$stmt->execute();
 $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">

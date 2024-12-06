@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // グループ情報を取得
-    $stmt = $pdo->prepare("SELECT password FROM groups WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT password FROM `groups` WHERE id = ?");
     $stmt->execute([$groupId]);
     $group = $stmt->fetch(PDO::FETCH_ASSOC);
 

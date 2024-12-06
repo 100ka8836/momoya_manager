@@ -7,11 +7,11 @@ $message = $_POST['message'] ?? ''; // POSTから取得できない場合は空�
 $messageClass = (strpos($message, 'エラー') !== false) ? 'error-message' : 'success-message';
 
 // データベースからグループ一覧を取得
-$stmt = $pdo->query("SELECT id, name FROM groups");
+$stmt = $pdo->query("SELECT id, name FROM `groups`");
 $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // グループデータの取得
-$stmt = $pdo->query("SELECT id, name FROM groups");
+$stmt = $pdo->query("SELECT id, name FROM `groups`");
 $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>

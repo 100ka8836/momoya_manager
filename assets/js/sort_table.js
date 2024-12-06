@@ -9,47 +9,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let sortOrder = "asc"; // 初期状態は昇順
 
-    // 各行の最初のセルをクリック可能にする
     rows.forEach((row) => {
       const firstCell = row.querySelector("td:first-child");
 
       if (!firstCell) return;
 
       firstCell.addEventListener("click", () => {
-        // クリックされた行のすべてのセルを取得（最後の列は操作列として除外）
         const cells = Array.from(row.querySelectorAll("td")).slice(1, -1);
 
-        // 並び替え基準データを取得
-        const columnData = cells.map((cell, index) => ({
-          index: index + 1, // 列番号（1列目を除外し、最後の列も除外）
-          value: isNaN(cell.textContent.trim())
-            ? normalizeText(cell.textContent.trim()) // テキストを正規化
-            : parseFloat(cell.textContent.trim()) // 数値の場合
-        }));
+        const columnData = cells.map((cell, index) => {
+          // 数値部分のみを取得
+          const spanValue = cell
+            .querySelector(".value-display")
+            .textContent.trim();
 
-        // 昇順・降順の切り替え
+          const value = isNaN(spanValue)
+            ? normalizeText(spanValue) // 文字列はそのまま
+            : zeroPad(parseFloat(spanValue)); // 数値はゼロ埋め
+
+          console.log(`Cell Value: ${spanValue}, Processed Value: ${value}`); // デバッグ用ログ
+
+          return {
+            index: index + 1,
+            value: value
+          };
+        });
+
+        // ソート処理
         columnData.sort((a, b) => {
           if (sortOrder === "asc") {
-            return a.value > b.value ? 1 : -1;
+            return a.value.localeCompare(b.value); // 文字列として比較
           } else {
-            return a.value < b.value ? 1 : -1;
+            return b.value.localeCompare(a.value);
           }
         });
 
-        // ソート順序を反転
         sortOrder = sortOrder === "asc" ? "desc" : "asc";
 
-        // ソートされた列順序に基づいてテーブルを再構築
+        // 新しい順序でセルを再配置
         const newOrder = columnData.map((data) => data.index);
+        console.log("New Order:", newOrder); // 確認用ログ
+
         const headerRow = table.querySelector("thead tr");
         const allRows = [headerRow, ...rows];
 
         allRows.forEach((tr) => {
           const cells = Array.from(tr.children);
           const reorderedCells = [
-            cells[0], // 最初の列
-            ...newOrder.map((i) => cells[i]), // ソート対象の列
-            cells[cells.length - 1] // 最後の列（操作列）
+            cells[0],
+            ...newOrder.map((i) => cells[i]),
+            cells[cells.length - 1]
           ];
           reorderedCells.forEach((cell, i) => tr.appendChild(cell));
         });
@@ -57,16 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /**
-   * テキストを正規化して比較可能な状態に変換
-   * - 大文字小文字を区別しない
-   * - 半角全角を統一
-   * @param {string} text
-   * @returns {string}
-   */
   function normalizeText(text) {
-    return text
-      .toLocaleLowerCase() // 大文字小文字を統一
-      .normalize("NFKC"); // 半角全角を統一
+    return text.toLocaleLowerCase().normalize("NFKC");
+  }
+
+  function zeroPad(num) {
+    return num < 10 ? `0${num}` : `${num}`;
   }
 });

@@ -7,11 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category_id'], $_POST
 
     try {
         // カテゴリの削除
-        $stmt = $pdo->prepare("DELETE FROM Categories WHERE id = ? AND group_id = ?");
+        $stmt = $pdo->prepare("DELETE FROM categories WHERE id = ? AND group_id = ?");
         $stmt->execute([$categoryId, $groupId]);
 
-        // 該当カテゴリに関連するCharacterValuesも削除
-        $stmt = $pdo->prepare("DELETE FROM CharacterValues WHERE category_id = ?");
+        // 該当カテゴリに関連するcharactervaluesも削除
+        $stmt = $pdo->prepare("DELETE FROM charactervalues WHERE category_id = ?");
         $stmt->execute([$categoryId]);
 
         // 成功時にリダイレクト

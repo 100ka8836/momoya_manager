@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // データベースにグループを挿入
-        $stmt = $pdo->prepare("INSERT INTO groups (name, password) VALUES (?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO `groups` (name, password) VALUES (?, ?)");
         $stmt->execute([$name, $hashed_password]);
 
         echo json_encode(['success' => true, 'message' => 'グループが作成されました！']);

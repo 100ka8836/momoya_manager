@@ -2,7 +2,7 @@
 require 'includes/db.php';
 
 // グループのデータを取得
-$stmt = $pdo->query("SELECT id, name FROM groups");
+$stmt = $pdo->query("SELECT `id`, `name` FROM `groups`");
 $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 

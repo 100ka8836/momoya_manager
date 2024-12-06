@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_category_name'], 
 
     try {
         // データベースのカテゴリ名を更新
-        $stmt = $pdo->prepare("UPDATE Categories SET name = ? WHERE id = ? AND group_id = ?");
+        $stmt = $pdo->prepare("UPDATE categories SET name = ? WHERE id = ? AND group_id = ?");
         $stmt->execute([$newCategoryName, $categoryId, $groupId]);
 
         // 成功時にリダイレクト

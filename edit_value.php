@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_value'], $_POST['
     try {
         // 値を更新または挿入
         $stmt = $pdo->prepare("
-            INSERT INTO CharacterValues (character_id, category_id, value)
+            INSERT INTO charactervalues (character_id, category_id, value)
             VALUES (?, ?, ?)
             ON DUPLICATE KEY UPDATE value = ?
         ");

@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // データベースからグループ情報を取得
-    $stmt = $pdo->prepare("SELECT * FROM groups WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM `groups` WHERE id = ?");
     $stmt->execute([$group_id]);
     $group = $stmt->fetch(PDO::FETCH_ASSOC);
 

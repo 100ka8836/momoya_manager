@@ -323,8 +323,26 @@ ul li a:hover {
 }
 
 /* ==============================
-   その他タブ
+   その他スタイル
 ============================== */
+th {
+  text-align: center;
+  padding: 10px;
+  color: white; /* カラーコードが濃い場合も見やすくする */
+  border: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+th[style] {
+  border: 1px solid #ddd;
+}
+
+th span {
+  font-size: inherit; /* 親要素のフォントサイズを継承 */
+  line-height: normal; /* 文字の行間も親要素に従う */
+  color: inherit; /* 親要素の色を継承 */
+}
+
 th.asc::after {
   content: " ↑";
   font-size: 0.8em;
@@ -350,34 +368,20 @@ th.desc::after {
   background-color: #cc0000;
 }
 
-/* 横並びにするスタイル */
 #add-category-form,
 #toggle-edit-mode {
-  display: inline-block; /* 横並びにする */
-  vertical-align: middle; /* 高さを揃える */
-  margin-right: 10px; /* 要素間の間隔 */
-}
-
-/* 追加: ボタンの高さをさらに調整 */
-#toggle-edit-mode {
-  position: relative; /* 相対位置を設定 */
-  top: -10px; /* 必要に応じて調整（上に動かす） */
-}
-
-/* 入力欄の幅調整 */
-#add-category-form input[type="text"] {
-  width: 200px; /* 必要に応じて変更可能 */
-  padding: 5px;
-}
-
-/* ボタンのスタイル */
-#add-category-form button,
-#toggle-edit-mode {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
   padding: 5px 10px;
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+}
+
+#add-category-form input[type="text"] {
+  width: 200px;
+  padding: 5px;
 }
 
 #add-category-form button:hover,

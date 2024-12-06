@@ -68,17 +68,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $pdo->commit();
 
-        // 成功メッセージでリダイレクト
-        header('Location: http://localhost/momoya_character_manager/create_character_iachara.php?message=登録しました！&success=1');
+        // 動的にURLを生成してリダイレクト
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $redirectPath = "/momoya_character_manager/create_character_iachara.php";
+        $redirectUrl = $protocol . $host . $redirectPath . "?message=" . urlencode("登録しました！") . "&success=1";
+        header("Location: $redirectUrl");
         exit;
 
     } catch (Exception $e) {
         $pdo->rollBack();
         error_log("エラー: " . $e->getMessage());
 
-        // エラーメッセージでリダイレクト
-        header('Location: http://localhost/momoya_character_manager/create_character_iachara.php?message=エラーが発生しました&success=0');
+        // 動的にURLを生成してエラーメッセージでリダイレクト
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'];
+        $redirectPath = "/momoya_character_manager/create_character_iachara.php";
+        $redirectUrl = $protocol . $host . $redirectPath . "?message=" . urlencode("エラーが発生しました") . "&success=0";
+        header("Location: $redirectUrl");
         exit;
-
     }
 }

@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // グループ名とパスワードの更新
         if ($password) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("UPDATE groups SET name = ?, password = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE `groups` SET name = ?, password = ? WHERE id = ?");
             $stmt->execute([$name, $hashed_password, $group_id]);
         } else {
-            $stmt = $pdo->prepare("UPDATE groups SET name = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE `groups` SET name = ? WHERE id = ?");
             $stmt->execute([$name, $group_id]);
         }
         header("Location: groups.php?updated=1");

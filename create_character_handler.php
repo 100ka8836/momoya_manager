@@ -1,6 +1,16 @@
 <?php
 
-header('Content-Type: application/json'); // JSON形式を指定
+ob_start();
+
+if (isset($_POST['internal_request']) && $_POST['internal_request'] === true) {
+    // 内部リクエスト時の特別な処理
+    error_log("内部リクエスト処理中");
+    // 必要に応じてヘッダーを設定しない、または制限する
+} else {
+    // 外部リクエストの場合
+    header('Content-Type: application/json');
+}
+
 require 'includes/db.php';
 
 try {
@@ -11,8 +21,10 @@ try {
     $formType = $_POST['form_type'] ?? null;
     $groupId = $_POST['group_id'] ?? null;
 
-    if (!$groupId) {
-        throw new Exception("グループが選択されていません。");
+    // グループIDを検証
+    $groupId = filter_var($groupId, FILTER_VALIDATE_INT);
+    if ($groupId === false) {
+        throw new Exception("無効なグループIDです。");
     }
 
     if ($formType === 'charaeno') {
@@ -28,40 +40,42 @@ try {
         // 6th版APIエンドポイント
         $apiUrl = "https://charaeno.com/api/v1/6th/$characterId/summary";
 
-        // API URLをログに記録
-        file_put_contents('debug_api_url.txt', $apiUrl . PHP_EOL, FILE_APPEND);
-
         // APIリクエスト
-        $response = file_get_contents($apiUrl);
+        $response = @file_get_contents($apiUrl);
         if ($response === false) {
+            $error = error_get_last();
+            error_log("APIエラー: " . print_r($error, true)); // APIエラーをログ
             throw new Exception("キャラエノAPIからデータを取得できませんでした。");
         }
 
-        // APIレスポンスをデバッグ
-        file_put_contents('debug_api_response.txt', $response . PHP_EOL, FILE_APPEND);
-
-        // JSONをデコード
         $characterData = json_decode($response, true);
         if (!$characterData) {
+            error_log("APIレスポンスが無効: " . $response); // 無効なレスポンスをログ
             throw new Exception("キャラエノAPIのデータが無効です。");
         }
 
-        // 取得したデータをログに記録
-        file_put_contents('debug_character_data.txt', print_r($characterData, true), FILE_APPEND);
-
-        // データベース登録
-        insertCharacterToDatabase($pdo, $characterData, $groupId, $sourceUrl);
+        try {
+            // データベース挿入処理
+            insertCharacterToDatabase($pdo, $characterData, $groupId, $sourceUrl);
+        } catch (Exception $e) {
+            error_log("データベースエラー: " . $e->getMessage()); // データベースエラーをログ
+            error_log("入力データ: " . print_r($characterData, true)); // デバッグ用データ記録
+            throw $e;
+        }
 
         echo json_encode(['success' => true, 'message' => '登録が完了しました！']);
     } else {
         throw new Exception("無効なフォームタイプです。");
     }
 } catch (Exception $e) {
-    error_log("エラー発生: " . $e->getMessage());
+    error_log("エラー: " . $e->getMessage());
+    error_log("スタックトレース: " . $e->getTraceAsString());
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    exit;
+} finally {
+    ob_end_flush();
 }
+
 
 function extractCharaenoId($url)
 {
@@ -76,11 +90,19 @@ function insertCharacterToDatabase($pdo, $data, $groupId, $sourceUrl)
     $pdo->beginTransaction();
 
     try {
+        // 空文字列をNULLに変換
+        $income = (is_numeric($data['credit']['income']) && $data['credit']['income'] !== '') ? $data['credit']['income'] : null;
+        $cash = (is_numeric($data['credit']['cash']) && $data['credit']['cash'] !== '') ? $data['credit']['cash'] : null;
+        $deposit = (is_numeric($data['credit']['deposit']) && $data['credit']['deposit'] !== '') ? $data['credit']['deposit'] : null;
+
         // characters テーブル登録
         $stmt = $pdo->prepare("
-            INSERT INTO characters 
-            (name, occupation, birthplace, degree, age, sex, address, description, family, injuries, scar, income, cash, deposit, personal_property, real_estate, mythos_tomes, artifacts_and_spells, encounters, note, chatpalette, portrait_url, source_url, group_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO `characters` 
+(`name`, `occupation`, `birthplace`, `degree`, `age`, `sex`, `address`, `description`, `family`, 
+ `injuries`, `scar`, `income`, `cash`, `deposit`, `personal_property`, `real_estate`, 
+ `mythos_tomes`, `artifacts_and_spells`, `encounters`, `note`, `chatpalette`, `portrait_url`, `source_url`, `group_id`)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
         ");
 
         $stmt->execute([
@@ -95,9 +117,9 @@ function insertCharacterToDatabase($pdo, $data, $groupId, $sourceUrl)
             $data['personalData']['family'] ?? null,
             $data['personalData']['injuries'] ?? null,
             $data['personalData']['scar'] ?? null,
-            $data['credit']['income'] ?? null,
-            $data['credit']['cash'] ?? null,
-            $data['credit']['deposit'] ?? null,
+            $income,
+            $cash,
+            $deposit,
             $data['credit']['personalProperty'] ?? null,
             $data['credit']['realEstate'] ?? null,
             $data['mythosTomes'] ?? null,
@@ -113,12 +135,14 @@ function insertCharacterToDatabase($pdo, $data, $groupId, $sourceUrl)
         $characterId = $pdo->lastInsertId();
 
         // デバッグ用：登録されたキャラクターIDを記録
-        file_put_contents('debug_inserted_character_id.txt', "Inserted character ID: $characterId" . PHP_EOL, FILE_APPEND);
+        error_log("登録されたキャラクターID: $characterId");
 
         // character_attributes テーブル登録
         $stmt = $pdo->prepare("
-            INSERT INTO character_attributes (character_id, str, con, pow, dex, app, siz, int_value, edu, hp, mp, db, san_current, san_max)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO `character_attributes` 
+(`character_id`, `str`, `con`, `pow`, `dex`, `app`, `siz`, `int_value`, `edu`, `hp`, `mp`, `db`, `san_current`, `san_max`)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
         ");
         $stmt->execute([
             $characterId,
@@ -140,24 +164,37 @@ function insertCharacterToDatabase($pdo, $data, $groupId, $sourceUrl)
         // character_skills テーブル登録
         if (!empty($data['skills'])) {
             foreach ($data['skills'] as $skill) {
+
+                // 挿入前データをログに記録
+                error_log("挿入前データ: " . print_r($skill, true));
+
                 $stmt = $pdo->prepare("
-                INSERT INTO character_skills (character_id, skill_name, skill_value, edited)
-                VALUES (?, ?, ?, ?)
-            ");
+    INSERT INTO `character_skills` (`character_id`, `skill_name`, `skill_value`, `edited`)
+    VALUES (?, ?, ?, ?)
+");
+
                 $stmt->execute([
                     $characterId,
                     $skill['name'] ?? null,
                     $skill['value'] ?? null,
-                    $skill['edited'] ?? 0, // デフォルト値として0を設定
+                    isset($skill['edited']) && is_numeric($skill['edited']) ? (int) $skill['edited'] : 0, // デフォルトで0を設定
                 ]);
             }
         }
 
+        // デバッグ用: 変換された値をログに記録
+        error_log(print_r([
+            'income' => $income,
+            'cash' => $cash,
+            'deposit' => $deposit,
+        ], true));
+
         $pdo->commit();
     } catch (Exception $e) {
         $pdo->rollBack();
-        // エラー内容をデバッグログに記録
-        file_put_contents('debug_db_error.txt', "Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
+        error_log("エラー: " . $e->getMessage());
+        error_log("入力データ: " . print_r($data, true));
+        error_log("スタックトレース: " . $e->getTraceAsString());
         throw $e;
     }
 }

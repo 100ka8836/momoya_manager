@@ -1,57 +1,69 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require 'includes/db.php';
 require 'fetch_skills.php';
 
-// グループIDを取得
 $group_id = $_GET['group_id'] ?? null;
 
-if (!$group_id) {
-    die("グループが選択されていません。");
+if (!$group_id || !is_numeric($group_id)) {
+    echo "<p>無効なグループIDです。<a href='index.php'>戻る</a></p>";
+    exit;
 }
 
-// グループに所属するキャラクターを取得
 $stmt = $pdo->prepare("
-    SELECT characters.id, characters.name, characters.occupation, characters.birthplace, characters.degree,
-           characters.age, characters.sex,
-           character_attributes.str, character_attributes.con, character_attributes.pow,
-           character_attributes.dex, character_attributes.app, character_attributes.siz,
-           character_attributes.int_value, character_attributes.edu,
-           character_attributes.hp, character_attributes.mp, character_attributes.db,
-           character_attributes.san_current, character_attributes.san_max
-    FROM characters
-    LEFT JOIN character_attributes ON characters.id = character_attributes.character_id
-    WHERE characters.group_id = ?
+    SELECT `characters`.`id`, `characters`.`name`, `characters`.`occupation`, 
+           `characters`.`birthplace`, `characters`.`degree`, `characters`.`age`, 
+           `characters`.`sex`, COALESCE(`characters`.`color_code`, '#FFFFFF') AS color_code,
+           `character_attributes`.`str`, `character_attributes`.`con`, 
+           `character_attributes`.`pow`, `character_attributes`.`dex`, 
+           `character_attributes`.`app`, `character_attributes`.`siz`,
+           `character_attributes`.`int_value`, `character_attributes`.`edu`, 
+           `character_attributes`.`hp`, `character_attributes`.`mp`, 
+           `character_attributes`.`db`, `character_attributes`.`san_current`, 
+           `character_attributes`.`san_max`
+    FROM `characters`
+    LEFT JOIN `character_attributes` 
+           ON `characters`.`id` = `character_attributes`.`character_id`
+    WHERE `characters`.`group_id` = ?
 ");
 $stmt->execute([$group_id]);
+
 $characters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// JavaScriptにキャラクターデータを渡す
-echo "<script>const characters = " . json_encode(array_map(function ($character) {
-    return array_map(function ($value) {
-        return $value !== null ? htmlspecialchars($value) : ''; // null の場合は空文字列を代入
-    }, $character);
-}, $characters)) . ";</script>";
-
-// キャラクターが存在しない場合のエラーメッセージ
-if (empty($characters)) {
-    die("このグループにはキャラクターが登録されていません。");
+function adjustTextColor($backgroundColor)
+{
+    if (!preg_match('/^#[0-9A-Fa-f]{6}$/', $backgroundColor)) {
+        return '#000000';
+    }
+    $r = hexdec(substr($backgroundColor, 1, 2));
+    $g = hexdec(substr($backgroundColor, 3, 2));
+    $b = hexdec(substr($backgroundColor, 5, 2));
+    $brightness = ($r * 299 + $g * 587 + $b * 114) / 1000;
+    return $brightness < 128 ? '#FFFFFF' : '#000000';
 }
 
-// 技能を取得
-$skillsData = fetchSkills($group_id, $pdo);
+if (empty($characters)) {
+    echo "<p>このグループにはキャラクターが登録されていません。</p>";
+    echo "<a href='add_character.php?group_id=" . htmlspecialchars($group_id) . "'>キャラクターを追加する</a>";
+    exit;
+}
 
-// 技能データの構造を適切に取得
+$skillsData = fetchSkills($group_id, $pdo);
 $skills = $skillsData['skills'] ?? [];
 $all_skills = $skillsData['all_skills'] ?? [];
 
-// 現在のグループに関連付けられたカテゴリを取得
-$stmt = $pdo->prepare("SELECT * FROM Categories WHERE group_id = ?");
+$stmt = $pdo->prepare("SELECT * FROM categories WHERE group_id = ?");
 $stmt->execute([$group_id]);
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// タブ保持用のアクティブタブを取得
-$activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
+$activeTab = $_GET['activeTab'] ?? 'basic';
+
+echo "<script>const characters = " . json_encode($characters, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . ";</script>";
 ?>
+
 
 
 <!DOCTYPE html>
@@ -62,35 +74,18 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
     <title>グループ詳細</title>
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- タブ切り替えスクリプト: タブの表示切り替えと現在のタブ状態を localStorage に保存 -->
+    <!-- スクリプト -->
     <script src="assets/js/tabs.js" defer></script>
-
-    <!-- テーブルのソートスクリプト: 最初のセルをクリックして行を昇順または降順に並べ替え -->
     <script src="assets/js/sort_table.js" defer></script>
-
-    <!-- 全タブ共通の検索スクリプト: テーブルの検索機能を提供し、検索条件に合致する行をトップに持ってくる -->
     <script src="assets/js/search_table.js" defer></script>
-
-    <!-- その他タブ専用スクリプト -->
     <script src="assets/js/other_tab.js" defer></script>
-
-    <!-- その他タブの編集について -->
     <script src="assets/js/edit_category.js" defer></script>
-
-    <!-- その他タブの編集ボタン動作 -->
     <script src="assets/js/edit_value.js" defer></script>
-
-    <!-- 各タブの「編集」ボタンの表示を切り替える -->
     <script src="assets/js/edit_toggle.js" defer></script>
-
-    <!-- 技能タブの「編集」ボタンの表示を切り替える -->
-    <script src="assets/js/edit_skill_value.js" defer></script>
-
-    <!-- 基本タブの編集ボタン機能 -->
     <script src="assets/js/edit_basic_value.js" defer></script>
-
-    <!-- 能力タブの編集ボタン機能 -->
     <script src="assets/js/edit_ability_value.js" defer></script>
+    <script src="assets/js/edit_color_code.js" defer></script>
+    <script src="assets/js/dynamic_lighten_color.js" defer></script>
 
 </head>
 
@@ -114,16 +109,34 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <th>カラム</th>
                         <?php foreach ($characters as $character): ?>
-                            <th><?= htmlspecialchars($character['name']) ?></th>
+                            <th data-color="<?= htmlspecialchars($character['color_code']) ?>"
+                                style="text-align: center; background-color: <?= htmlspecialchars($character['color_code']) ?>;">
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['name']) ?>
+                                </span>
+                                <br>
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['color_code']) ?>
+                                </span>
+                                <div id="color-edit-<?= $character['id'] ?>" style="display: none; margin-top: 5px;">
+                                    <input type="color" id="color-picker-<?= $character['id'] ?>"
+                                        value="<?= htmlspecialchars($character['color_code']) ?>">
+                                    <input type="text" id="color-input-<?= $character['id'] ?>"
+                                        value="<?= htmlspecialchars($character['color_code']) ?>"
+                                        style="width: 80px; text-align: center;">
+                                </div>
+                            </th>
                         <?php endforeach; ?>
-                        <th>以上</th> <!-- 操作列 -->
+                        <th>操作</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr>
                         <td>職業</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="basic-cell-<?= $c['id'] ?>-occupation">
+                            <td id="basic-cell-<?= $c['id'] ?>-occupation"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['occupation']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editBasicValue(<?= $c['id'] ?>, 'occupation')">編集</button>
@@ -134,7 +147,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>住所</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="basic-cell-<?= $c['id'] ?>-birthplace">
+                            <td id="basic-cell-<?= $c['id'] ?>-birthplace"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['birthplace']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editBasicValue(<?= $c['id'] ?>, 'birthplace')">編集</button>
@@ -145,7 +159,7 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>年齢</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="basic-cell-<?= $c['id'] ?>-age">
+                            <td id="basic-cell-<?= $c['id'] ?>-age" data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['age']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editBasicValue(<?= $c['id'] ?>, 'age')">編集</button>
@@ -156,7 +170,7 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>性別</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="basic-cell-<?= $c['id'] ?>-sex">
+                            <td id="basic-cell-<?= $c['id'] ?>-sex" data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['sex']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editBasicValue(<?= $c['id'] ?>, 'sex')">編集</button>
@@ -170,6 +184,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
             <button id="toggle-basic-edit-mode">基本情報の変更</button>
         </div>
 
+
+
         <!-- 能力値タブ -->
         <div id="abilities" class="tab-content">
             <table id="sortable-table">
@@ -180,7 +196,16 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <th>カラム</th>
                         <?php foreach ($characters as $character): ?>
-                            <th><?= htmlspecialchars($character['name']) ?></th>
+                            <th data-color="<?= htmlspecialchars($character['color_code']) ?>"
+                                style="text-align: center; background-color: <?= htmlspecialchars($character['color_code']) ?>;">
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['name']) ?>
+                                </span>
+                                <br>
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['color_code']) ?>
+                                </span>
+                            </th>
                         <?php endforeach; ?>
                         <th>以上</th> <!-- 操作列 -->
                     </tr>
@@ -189,7 +214,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>STR</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-str">
+                            <td id="abilities-cell-<?= $c['id'] ?>-str"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['str']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'str')">編集</button>
@@ -200,7 +226,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>CON</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-con">
+                            <td id="abilities-cell-<?= $c['id'] ?>-con"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['con']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'con')">編集</button>
@@ -211,7 +238,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>POW</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-pow">
+                            <td id="abilities-cell-<?= $c['id'] ?>-pow"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['pow']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'pow')">編集</button>
@@ -222,7 +250,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>DEX</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-dex">
+                            <td id="abilities-cell-<?= $c['id'] ?>-dex"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['dex']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'dex')">編集</button>
@@ -233,7 +262,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>APP</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-app">
+                            <td id="abilities-cell-<?= $c['id'] ?>-app"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['app']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'app')">編集</button>
@@ -244,7 +274,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>SIZ</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-siz">
+                            <td id="abilities-cell-<?= $c['id'] ?>-siz"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['siz']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'siz')">編集</button>
@@ -255,7 +286,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>INT</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-int_value">
+                            <td id="abilities-cell-<?= $c['id'] ?>-int_value"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['int_value']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'int_value')">編集</button>
@@ -266,7 +298,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>EDU</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-edu">
+                            <td id="abilities-cell-<?= $c['id'] ?>-edu"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['edu']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'edu')">編集</button>
@@ -277,7 +310,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>HP</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-hp">
+                            <td id="abilities-cell-<?= $c['id'] ?>-hp"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['hp']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'hp')">編集</button>
@@ -288,7 +322,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>MP</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-mp">
+                            <td id="abilities-cell-<?= $c['id'] ?>-mp"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['mp']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'mp')">編集</button>
@@ -299,7 +334,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>DB</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-db">
+                            <td id="abilities-cell-<?= $c['id'] ?>-db"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['db']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'db')">編集</button>
@@ -310,7 +346,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>現在SAN</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-san_current">
+                            <td id="abilities-cell-<?= $c['id'] ?>-san_current"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['san_current']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'san_current')">編集</button>
@@ -321,7 +358,8 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <td>最大SAN</td>
                         <?php foreach ($characters as $c): ?>
-                            <td id="abilities-cell-<?= $c['id'] ?>-san_max">
+                            <td id="abilities-cell-<?= $c['id'] ?>-san_max"
+                                data-color="<?= htmlspecialchars($c['color_code']) ?>">
                                 <span class="value-display"><?= htmlspecialchars($c['san_max']) ?></span>
                                 <button class="edit-button" style="display: none;"
                                     onclick="editAbilityValue(<?= $c['id'] ?>, 'san_max')">編集</button>
@@ -337,20 +375,29 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
 
 
 
-
         <!-- 技能タブ -->
         <div id="skills" class="tab-content">
-            <div>
-                <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
-            </div>
             <table id="sortable-table">
+                <div>
+                    <input type="text" class="column-search" placeholder="検索: 例 年齢, STR, 目星">
+                </div>
+
                 <thead>
                     <tr>
                         <th>技能</th>
                         <?php foreach ($characters as $character): ?>
-                            <th><?= htmlspecialchars($character['name']) ?></th>
+                            <th data-color="<?= htmlspecialchars($character['color_code']) ?>"
+                                style="text-align: center; background-color: <?= htmlspecialchars($character['color_code']) ?>;">
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['name']) ?>
+                                </span>
+                                <br>
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['color_code']) ?>
+                                </span>
+                            </th>
                         <?php endforeach; ?>
-                        <th>操作</th> <!-- 操作列 -->
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -358,22 +405,17 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                         <tr>
                             <td><?= htmlspecialchars($skill_name) ?></td>
                             <?php foreach ($characters as $character): ?>
-                                <td id="skills-cell-<?= $character['id'] ?>-<?= htmlspecialchars($skill_name) ?>">
-                                    <?php
-                                    // スキル値を取得
-                                    $skill_value = $skills[$character['id']][$skill_name] ?? '-';
-                                    ?>
-                                    <span class="value-display"><?= htmlspecialchars($skill_value) ?></span>
-                                    <button class="edit-button" style="display: none;"
-                                        onclick="editSkillValue(<?= $character['id'] ?>, '<?= htmlspecialchars($skill_name) ?>')">編集</button>
+                                <td id="skills-cell-<?= $character['id'] ?>-<?= htmlspecialchars($skill_name) ?>"
+                                    data-color="<?= htmlspecialchars($character['color_code']) ?>">
+                                    <span
+                                        class="value-display"><?= htmlspecialchars($skills[$character['id']][$skill_name] ?? '-') ?></span>
                                 </td>
                             <?php endforeach; ?>
-                            <td></td> <!-- 操作列の空白 -->
+                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <button id="toggle-skills-edit-mode">技能の変更</button>
         </div>
 
 
@@ -389,7 +431,16 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                     <tr>
                         <th>項目</th>
                         <?php foreach ($characters as $character): ?>
-                            <th><?= htmlspecialchars($character['name']) ?></th>
+                            <th data-color="<?= htmlspecialchars($character['color_code']) ?>"
+                                style="text-align: center; background-color: <?= htmlspecialchars($character['color_code']) ?>;">
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['name']) ?>
+                                </span>
+                                <br>
+                                <span style="color: <?= adjustTextColor($character['color_code']) ?>;">
+                                    <?= htmlspecialchars($character['color_code']) ?>
+                                </span>
+                            </th>
                         <?php endforeach; ?>
                         <th>操作</th> <!-- 削除ボタン用の列 -->
                     </tr>
@@ -397,7 +448,7 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                 <tbody>
                     <?php
                     // カテゴリを取得
-                    $stmt = $pdo->prepare("SELECT * FROM Categories WHERE group_id = ?");
+                    $stmt = $pdo->prepare("SELECT * FROM categories WHERE group_id = ?");
                     $stmt->execute([$group_id]);
                     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -405,13 +456,14 @@ $activeTab = $_GET['activeTab'] ?? 'basic'; // デフォルトタブは 'basic'
                         <tr>
                             <td><?= htmlspecialchars($category['name']); ?></td>
                             <?php foreach ($characters as $character): ?>
-                                <td id="value-cell-<?= $character['id'] ?>-<?= $category['id'] ?>">
+                                <td id="value-cell-<?= $character['id'] ?>-<?= $category['id'] ?>"
+                                    data-color="<?= htmlspecialchars($character['color_code']) ?>">
                                     <?php
                                     $stmtValue = $pdo->prepare("
-                                SELECT value
-                                FROM CharacterValues
-                                WHERE character_id = ? AND category_id = ?
-                            ");
+                        SELECT value
+                        FROM charactervalues
+                        WHERE character_id = ? AND category_id = ?
+                    ");
                                     $stmtValue->execute([$character['id'], $category['id']]);
                                     $value = $stmtValue->fetchColumn();
                                     ?>

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category_name'], $_PO
     try {
         // カテゴリをデータベースに追加
         $stmt = $pdo->prepare("
-            INSERT INTO Categories (name, group_id) VALUES (:name, :group_id)
+            INSERT INTO categories (name, group_id) VALUES (:name, :group_id)
         ");
         $stmt->execute(['name' => htmlspecialchars($categoryName), 'group_id' => $groupId]);
 
